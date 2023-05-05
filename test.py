@@ -47,3 +47,30 @@ class Solution(object):
 
 
         return res
+    
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        # space
+        # time
+        if len(nums) < 3:
+            return []
+        res = set()
+        nums.sort()
+        for i in range(0, len(nums)-2):
+            j = i+1
+            k = len(nums)-1
+            while j < k:
+                if nums[i]+nums[j]+nums[k]==0:
+                    res.add((nums[i], nums[j], nums[k]))
+                    j += 1
+                    k -= 1
+                    
+                elif nums[i]+nums[j]+nums[k] < 0:
+                    j+=1
+                else:
+                    k-=1
+
+        return res
