@@ -74,3 +74,33 @@ class Solution(object):
                     k-=1
 
         return res
+    
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        # space
+        # time
+        res = float("inf")
+        nums.sort()
+        if len(nums) < 3:
+            return 0
+        for i in range(0, len(nums)-2):
+            j = i+1
+            k = len(nums)-1
+            while j < k:
+                temp = nums[i]+nums[j]+nums[k]
+                if temp == target:
+                    return target
+                elif temp < target:
+                    j+=1      
+                else:
+                    k-=1
+                curr_diff = abs(temp-target)
+                prev_diff = abs(res-target)
+
+                if curr_diff < prev_diff:
+                    res = temp
+        return res
