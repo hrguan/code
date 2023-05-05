@@ -104,3 +104,30 @@ class Solution(object):
                 if curr_diff < prev_diff:
                     res = temp
         return res
+    
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        res = set()
+        if len(nums) < 4:
+            return []
+        nums.sort()
+
+        for a in range(0, len(nums)-3):
+            for b in range(a+1, len(nums)-2):
+                c = b+1
+                d = len(nums)-1     
+                while c < d:
+                    temp = nums[a]+nums[b]+nums[c]+nums[d]
+                    if temp == target:
+                        res.add((nums[a], nums[b], nums[c], nums[d]))
+                        c += 1
+                        d -= 1
+                    elif temp < target:
+                        c += 1
+                    else:
+                        d -= 1
+        return res
