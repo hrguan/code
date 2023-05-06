@@ -216,3 +216,35 @@ class Solution(object):
             p -= 1
 
         return res
+
+    def reverseWords(self, s):
+        """
+        :type s: List[str]
+        :rtype: None Do not return anything, modify s in-place instead.
+        """
+        left = 0
+        right = len(s) - 1
+        while left < right:
+            s[left], s[right] = s[right], s[left]
+            left += 1
+            right -= 1
+        print(s)
+        
+        start = 0
+        end = 0
+        while end <= len(s)-1:
+            while end <= len(s)-1 and s[end] != " ":
+                end += 1
+            e = end -1
+            while start <= e:
+                s[start], s[e] = s[e], s[start]
+                start += 1
+                e -= 1
+            start = end+1
+            end += 1
+        
+        ee = len(s)-1
+        while start <= ee:
+            s[start], s[ee] = s[ee], s[start]
+            start += 1
+            ee -= 1
