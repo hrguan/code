@@ -131,3 +131,23 @@ class Solution(object):
                     else:
                         d -= 1
         return res
+    
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        zero = 0
+        one = 0
+        two = len(nums)-1
+
+        while one <= two:
+            if nums[one] == 0:
+                nums[one], nums[zero] = nums[zero], nums[one]
+                zero += 1
+                one += 1
+            elif nums[one] == 1:
+                one += 1
+            else:
+                nums[one], nums[two] = nums[two], nums[one]
+                two -= 1
