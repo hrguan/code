@@ -178,3 +178,24 @@ class Solution(object):
             
 
         return True
+    
+    def validPalindrome(self, s):
+        left = 0
+        right = len(s)-1
+
+        while left <= right:
+            if s[left] == s[right]:
+                left += 1
+                right -= 1
+            else:
+                return self.check(s, left+1, right) or self.check(s, left, right-1)
+        return True
+    
+    def check(self, s, left, right):
+        while left <= right:
+            if s[left] == s[right]:
+                left += 1
+                right -= 1
+            else:
+                return False
+        return True
