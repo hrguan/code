@@ -301,3 +301,39 @@ class Solution(object):
             seen.add(head)
             head = head.next
         return False
+    
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # left = 0
+        # right = len(nums)-1
+
+        # if nums[left] == nums[right]:
+        #     return nums[left]
+        # while left < right:
+        #     middle = left+1
+        #     while middle < right:
+        #         if nums[middle] == nums[right] or nums[middle] == nums[left]:
+        #             return nums[middle]
+        #         middle += 1
+        #     left += 1
+        #     right -= 1
+
+        s = nums[0]
+        f = nums[0]
+
+        while True:
+            s = nums[s]
+            f = nums[nums[f]]
+            if s == f:
+                break
+        
+        s = nums[0]
+
+        while s != f:
+            s = nums[s]
+            f = nums[f]
+
+        return s
