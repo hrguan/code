@@ -248,3 +248,30 @@ class Solution(object):
             s[start], s[ee] = s[ee], s[start]
             start += 1
             ee -= 1
+
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        s = list(s)
+        start = 0
+        end = 0
+        while end <= len(s)-1:
+            while end <= len(s)-1 and s[end] != " ":
+                end += 1
+            e = end-1
+            while start <= e:
+                s[start], s[e] = s[e], s[start]
+                start += 1
+                e -= 1
+            start = end+1
+            end += 1
+        
+        e = len(s)-1
+        while start <= e:
+            s[start], s[e] = s[e], s[start]
+            start += 1
+            e -= 1
+        
+        return "".join(s)
