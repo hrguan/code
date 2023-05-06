@@ -151,3 +151,30 @@ class Solution(object):
             else:
                 nums[one], nums[two] = nums[two], nums[one]
                 two -= 1
+
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        left = 0
+        right = len(s)-1
+        
+        while left <= right:
+            l = ""
+            r = ""
+            while left <= len(s)-1 and not s[left].isalnum():
+                left += 1
+            if left <= len(s)-1:
+                l = s[left].lower()
+            while right >= 0 and not s[right].isalnum():
+                right -= 1
+            if right >= 0:
+                r = s[right].lower()
+            if l != r:
+                return False
+            left += 1
+            right -=1
+            
+
+        return True
