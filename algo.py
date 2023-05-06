@@ -288,3 +288,16 @@ class Solution(object):
             seen.add(head)
             head = head.next
         return None
+    
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        seen = set()
+        while head:
+            if head in seen:
+                return True
+            seen.add(head)
+            head = head.next
+        return False
