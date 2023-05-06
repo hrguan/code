@@ -199,3 +199,20 @@ class Solution(object):
             else:
                 return False
         return True
+    
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        words = s.split()
+        res = ""
+        p = len(words)
+        while p:
+            if p == len(words):
+                res += words[p-1]
+            else:
+                res += " " + words[p-1]
+            p -= 1
+
+        return res
