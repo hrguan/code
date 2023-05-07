@@ -337,3 +337,21 @@ class Solution(object):
             f = nums[f]
 
         return s
+
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        intervals.sort(key=lambda x:x[0])
+        print(intervals)
+        need = Queue.PriorityQueue()
+        need.put(intervals[0][1])
+        for i in range(1, len(intervals)):
+            start = intervals[i][0]
+            end = intervals[i][1]
+            curr_end = need.get()
+            if start < curr_end:
+                need.put(curr_end)
+            need.put(start)
+        return need.qsize()
