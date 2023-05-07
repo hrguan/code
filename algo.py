@@ -450,3 +450,21 @@ class Solution(object):
             curr = nums[i]
             idx +=1
         return idx
+    
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        seen = set()
+        while True:
+            if n == 1:
+                return True
+            elif n in seen:
+                return False
+            else:
+                seen.add(n)
+                temp = 0
+                for i in str(n):
+                    temp += int(math.pow(int(i), 2))
+                n = temp
