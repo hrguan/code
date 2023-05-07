@@ -435,3 +435,18 @@ class Solution(object):
         after.next = None
         before.next = after_head.next
         return before_head.next
+    
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        curr = nums[0]
+        idx = 1
+        for i in range(1, len(nums)):
+            if nums[i] == curr:
+                continue
+            nums[idx] = nums[i]
+            curr = nums[i]
+            idx +=1
+        return idx
