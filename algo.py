@@ -353,5 +353,38 @@ class Solution(object):
             curr_end = need.get()
             if start < curr_end:
                 need.put(curr_end)
-            need.put(start)
+            need.put(end)
         return need.qsize()
+
+    def isPalindrome(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        slow = head
+        fast = head
+        prev = None
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        prev = slow
+        slow = slow.next
+        prev.next = None
+
+        while slow:
+            n = slow.next
+            slow.next = prev
+            prev = slow
+            slow = n
+        
+        slow = prev
+        fast = head
+
+        while slow:
+            if fast.val != slow.val :
+                return False
+            fast = fast.next
+            slow = slow.next
+        return True
