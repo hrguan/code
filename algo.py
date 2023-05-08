@@ -547,3 +547,23 @@ class Solution(object):
                 return True
 
         return False
+
+    def partitionLabels(self, s):
+        """
+        :type s: str
+        :rtype: List[int]
+        """
+        res = []
+        d = dict()
+        for idx, char in enumerate(s):
+            d[char] = idx
+        
+        start = 0
+        end = 0
+        for idx, char in enumerate(s):
+            end = max(end, d[char])
+            if end == idx:
+                res.append(end-start+1)
+                start = end+1
+        
+        return res
