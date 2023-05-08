@@ -609,11 +609,28 @@ class Solution(object):
         l = 0
         for r, fruit in enumerate(fruits):
             d[fruit] += 1
-            if len(d) > 2:
+            while len(d) > 2:
                 d[fruits[l]] -= 1
                 if d[fruits[l]] == 0:
                     del d[fruits[l]]
                 l += 1
             res = max(res, r-l+1)
 
+        return res
+    
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        left = 0
+        res = 0
+        right = 0
+        seen = dict()
+        while right < len(s):
+            if s[right] in seen:
+                left = max(left, seen[s[right]]+1)
+            res = max(res, right-left+1)
+            seen[s[right]] = right
+            right += 1
         return res
