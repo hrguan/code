@@ -522,3 +522,28 @@ class Solution(object):
                     if prev == i or ((nums[prev]>0) != (nums[i]>0)):
                         break
         return False
+    
+    def checkInclusion(self, s1, s2):
+        """
+        :type s1: str
+        :type s2: str
+        :rtype: bool
+        """
+        if len(s1) > len(s2):
+            return False
+        
+        cnt1 = [0]*26
+        cnt2 = [0]*26
+
+        for i in range(len(s1)):
+            cnt1[ord(s1[i])-ord('a')] += 1
+
+        for i in range(len(s2)):
+            cnt2[ord(s2[i])-ord('a')] += 1
+            if i >= len(s1):
+                cnt2[ord(s2[i-len(s1)])-ord('a')] -= 1
+
+            if cnt1 == cnt2:
+                return True
+
+        return False
