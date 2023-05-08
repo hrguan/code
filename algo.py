@@ -500,3 +500,25 @@ class Solution(object):
                         return nums
         
         return nums.reverse()
+    
+    def circularArrayLoop(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        visit = set()
+        for i in range(len(nums)):
+            cycle = set()
+            if i not in visit:
+                while True:
+                    if i in cycle:
+                        return True
+                    if i in visit:
+                        break
+                    visit.add(i)
+                    cycle.add(i)
+                    prev = i
+                    i = (i+nums[i]) % len(nums)
+                    if prev == i or ((nums[prev]>0) != (nums[i]>0)):
+                        break
+        return False
