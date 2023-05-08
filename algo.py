@@ -597,3 +597,23 @@ class Solution(object):
                 buy = prices[i]
 
         return res
+    
+    def totalFruit(self, fruits):
+        """
+        :type fruits: List[int]
+        :rtype: int
+        """
+        res = 0
+        d = collections.defaultdict(int)
+
+        l = 0
+        for r, fruit in enumerate(fruits):
+            d[fruit] += 1
+            if len(d) > 2:
+                d[fruits[l]] -= 1
+                if d[fruits[l]] == 0:
+                    del d[fruits[l]]
+                l += 1
+            res = max(res, r-l+1)
+
+        return res
