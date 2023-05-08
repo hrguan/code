@@ -480,3 +480,23 @@ class Solution(object):
             slow = slow.next
             fast = fast.next.next
         return slow
+
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+
+        #find peak
+        for i in range(len(nums)-1, 0, -1):
+            if nums[i - 1] < nums[i]:
+                nums[i:] = sorted(nums[i:])
+
+                pre_idx = i - 1
+            
+                for i in range(i, len(nums)):
+                    if nums[pre_idx] < nums[i]:
+                        nums[pre_idx], nums[i] = nums[i], nums[pre_idx]
+                        return nums
+        
+        return nums.reverse()
