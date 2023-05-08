@@ -634,3 +634,18 @@ class Solution(object):
             seen[s[right]] = right
             right += 1
         return res
+    
+    def findRepeatedDnaSequences(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        res, d = [], {}
+        for i in range(len(s)):
+            if s[i:i+10] not in d: 
+                d[s[i:i+10]] = 0
+            else:
+                if s[i:i+10] not in res: 
+                    res.append(s[i:i+10])
+        
+        return res
