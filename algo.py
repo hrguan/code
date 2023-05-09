@@ -643,9 +643,26 @@ class Solution(object):
         res, d = [], {}
         for i in range(len(s)):
             if s[i:i+10] not in d: 
-                d[s[i:i+10]] = 0
+                d[s[i :i+10]] = 0
             else:
                 if s[i:i+10] not in res: 
                     res.append(s[i:i+10])
         
         return res
+    
+    def findClosestElements(self, arr, k, x):
+        """
+        :type arr: List[int]
+        :type k: int
+        :type x: int
+        :rtype: List[int]
+        """
+        left = 0
+        right = len(arr) - 1
+
+        while right-left >= k:
+            if abs(x-arr[left]) > abs(x-arr[right]):
+                left += 1
+            else:
+                right -= 1
+        return arr[left:right+1]
