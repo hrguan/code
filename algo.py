@@ -661,8 +661,35 @@ class Solution(object):
         right = len(arr) - 1
 
         while right-left >= k:
-            if abs(x-arr[left]) > abs(x-arr[right]):
-                left += 1
-            else:
+            if abs(x-arr[left]) <= abs(x-arr[right]):  
                 right -= 1
+            else:
+                left += 1
         return arr[left:right+1]
+    
+    def minSubArrayLen(self, target, nums):
+        """
+        :type target: int
+        :type nums: List[int]
+        :rtype: int
+        """
+        if sum(nums) < target:
+            return 0
+        elif sum(nums) == target:
+            return len(nums)
+
+        res = float("inf")
+        left = 0
+        temp = nums[left]
+        if temp >= target:
+            res = 1
+        for right in range(1, len(nums)):   
+            temp += nums[right]
+            if temp >= target:
+                res = min(res, right-left+1)
+                while temp >= target:
+                    temp -= nums[left]
+                    left += 1
+                    if temp >= target:
+                        res = min(res, right-left+1)
+        return res
