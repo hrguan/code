@@ -880,3 +880,25 @@ class Solution(object):
             else:
                 j += 1
         return res
+    
+    def employeeFreeTime(self, schedule):
+        """
+        :type schedule: [[Interval]]
+        :rtype: [Interval]
+        """
+        intervals = []
+        for employee in schedule:
+            for interval in employee:
+                intervals.append(interval)
+        intervals.sort(key = lambda interval: interval.start)
+
+        freeTime = []
+        end = intervals[0].end
+        for i in range(1, len(intervals)):
+            start = intervals[i].start
+            if start > end:
+                freeTime.append(Interval(start = end, end = start))
+                end = intervals[i].end
+            else:
+                end = max(intervals[i].end, end)
+        return freeTime
