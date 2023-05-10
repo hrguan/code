@@ -711,3 +711,33 @@ class Solution(object):
             if i >= k-1:
                 res.append(nums[q[0]])
         return res
+    
+    def minWindow(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        if len(t) > len(s):
+            return ""
+        
+        left = 0
+        start = 0
+        end = 0
+        missing = len(t)
+        need = collections.Counter(t)
+        for right, char in enumerate(s, 1):
+            if need[char] > 0:
+                missing -= 1
+            need[char] -= 1
+            if missing == 0:
+                while left < right and need[s[left]] < 0:
+                    need[s[left]] += 1
+                    left += 1
+                need[s[left]] += 1
+                missing += 1
+                if end == 0 or right -left < end-start:
+                    start = left
+                    end = right
+                left+=1
+        return s[start:end]
