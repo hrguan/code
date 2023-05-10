@@ -849,16 +849,34 @@ class Solution(object):
         res = []
         for i in range(len(intervals)):
             if intervals[i][1] < newInterval[0]:
-                print("1")
                 res.append(intervals[i])
             elif intervals[i][0] > newInterval[1]:
-                print("3")
                 res.append(newInterval)
                 newInterval = intervals[i]
             elif intervals[i][1] >= newInterval[0]:
-                print("2")
                 newInterval[0] = min(intervals[i][0], newInterval[0])
-                newInterval[1] = max(intervals[i][1], newInterval[1])
-            
+                newInterval[1] = max(intervals[i][1], newInterval[1])  
         res.append(newInterval)
+        return res
+    
+    def intervalIntersection(self, firstList, secondList):
+        """
+        :type firstList: List[List[int]]
+        :type secondList: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        i = 0
+        j = 0
+        res = []
+        while i < len(firstList) and j < len(secondList):
+            first_start = firstList[i][0]
+            first_end = firstList[i][1]
+            second_start = secondList[j][0]
+            second_end = secondList[j][1]
+            if first_start <= second_end and second_start <= first_end:
+                res.append([max(first_start, second_start), min(first_end, second_end)])
+            if first_end <= second_end:
+                i += 1
+            else:
+                j += 1
         return res
