@@ -782,3 +782,21 @@ class Solution(object):
                 if currOver < start:
                     res += start - currOver
         return res
+    
+    def maxTurbulenceSize(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: int
+        """
+        res = 0
+        temp = 0
+        for i in range(len(arr)):
+            if i >= 2 and (arr[i-2] > arr[i-1] < arr[i] or arr[i-2] < arr[i-1] > arr[i]):
+                    temp += 1
+            elif i >= 1:
+                if arr[i] != arr[i-1]:
+                    temp = 2
+            else:
+                temp = 1
+            res = max(res, temp)
+        return res
