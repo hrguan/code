@@ -741,3 +741,20 @@ class Solution(object):
                     end = right
                 left+=1
         return s[start:end]
+    
+    def findLength(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: int
+        """
+        n2 = "".join([chr(x) for x in nums2])
+        curr = ""
+        res = 0
+        for num in nums1:
+            curr += chr(num)
+            if curr in n2:
+                res = max(res, len(curr))
+            else:
+                curr = curr[1:]
+        return res
