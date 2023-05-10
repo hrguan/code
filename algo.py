@@ -839,3 +839,26 @@ class Solution(object):
                 res.append(intervals[i])
                 end = curr_end
         return res
+    
+    def insert(self, intervals, newInterval):
+        """
+        :type intervals: List[List[int]]
+        :type newInterval: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        for i in range(len(intervals)):
+            if intervals[i][1] < newInterval[0]:
+                print("1")
+                res.append(intervals[i])
+            elif intervals[i][0] > newInterval[1]:
+                print("3")
+                res.append(newInterval)
+                newInterval = intervals[i]
+            elif intervals[i][1] >= newInterval[0]:
+                print("2")
+                newInterval[0] = min(intervals[i][0], newInterval[0])
+                newInterval[1] = max(intervals[i][1], newInterval[1])
+            
+        res.append(newInterval)
+        return res
