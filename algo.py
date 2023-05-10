@@ -758,3 +758,27 @@ class Solution(object):
             else:
                 curr = curr[1:]
         return res
+
+    def countSubarrays(self, nums, minK, maxK):
+        """
+        :type nums: List[int]
+        :type minK: int
+        :type maxK: int
+        :rtype: int
+        """
+        currMin = -1
+        currMax = -1
+        currOver = -1
+        res = 0
+        for i in range(len(nums)):
+            if nums[i] == minK:
+                currMin = i
+            if nums[i] == maxK:
+                currMax = i
+            if nums[i] > maxK or nums[i] < minK:
+                currOver = i
+            if currMin != -1 and currMax != -1:
+                start = min(currMin, currMax)
+                if currOver < start:
+                    res += start - currOver
+        return res
