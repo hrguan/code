@@ -820,3 +820,22 @@ class Solution(object):
                 q.put(prev_end)
             q.put(curr_end)
         return True if q.qsize() == 1 else False
+    
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        intervals.sort(key=lambda x:x[0])
+        res = []
+        res.append(intervals[0])
+        for i in range(1, len(intervals)):
+            end = res[-1][1]
+            curr_start = intervals[i][0]
+            curr_end = intervals[i][1]
+            if curr_start <= end:
+                res[-1][1] = max(curr_end, end)
+            else:
+                res.append(intervals[i])
+                end = curr_end
+        return res
