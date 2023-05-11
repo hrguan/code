@@ -1082,3 +1082,28 @@ class Solution(object):
             nxt = second.next
             second.next = first
             second = nxt
+
+    def insertionSortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+
+        def add(temp):
+            curr = dummy
+            while curr:
+                if curr.val < temp.val:
+                    prev = curr
+                    curr = curr.next
+                else:
+                    break
+            temp.next = curr
+            prev.next = temp
+
+        dummy = ListNode(-5001)
+        while head:
+            temp = head
+            head = head.next
+            temp.next = None
+            add(temp)
+        return dummy.next
