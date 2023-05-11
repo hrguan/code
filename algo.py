@@ -981,3 +981,29 @@ class Solution(object):
 
             else:
                 return dummy.next
+
+    def reverseBetween(self, head, left, right):
+        """
+        :type head: ListNode
+        :type left: int
+        :type right: int
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        prev = dummy
+        dummy.next = head
+        for i in range(left-1):
+            prev = prev.next
+        curr = prev.next
+        tail = None
+
+        for i in range(right-left+1):
+            nxt = curr.next
+            curr.next = tail
+            tail = curr
+            curr = nxt
+        
+        prev.next.next = curr
+        prev.next = tail
+
+        return dummy.next
