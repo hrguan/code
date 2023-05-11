@@ -1046,3 +1046,39 @@ class Solution(object):
                 lists[i] = lists[i].next
                 heapq.heappush(heap, (lists[i].val, i))
         return dummy.next
+    
+    def reorderList(self, head):
+        """
+        :type head: ListNode
+        :rtype: None Do not return anything, modify head in-place instead.
+        """
+        if not head:
+            return None
+        slow = head
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        prev = None
+        curr = slow
+
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        
+        head_of_second_rev = prev
+        
+        first = head
+        second = prev
+
+        while second.next:
+            nxt = first.next
+            first.next = second
+            first = nxt
+
+            nxt = second.next
+            second.next = first
+            second = nxt
