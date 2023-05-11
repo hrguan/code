@@ -931,3 +931,21 @@ class Solution(object):
                 return headB
             headB = headB.next
         return None
+    
+    def swapNodes(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        first = head
+        last = head
+        for i in range(1, k):
+            first = first.next
+            
+        null_checker = first 
+        while null_checker.next:
+            last = last.next
+            null_checker = null_checker.next
+        first.val, last.val = last.val, first.val
+        return head
