@@ -1007,3 +1007,21 @@ class Solution(object):
         prev.next = tail
 
         return dummy.next
+    
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        dummy.next = head
+        p = dummy
+        while head and head.next:
+            tmp = head.next
+            head.next = tmp.next
+            tmp.next = head
+            p.next = tmp
+            
+            head = head.next
+            p = tmp.next
+        return dummy.next
