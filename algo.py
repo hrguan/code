@@ -902,3 +902,17 @@ class Solution(object):
             else:
                 end = max(intervals[i].end, end)
         return freeTime
+
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        prev = None
+        curr = head
+        while curr:
+            n = curr.next
+            curr.next = prev
+            prev = curr
+            curr = n
+        return prev
