@@ -1025,3 +1025,24 @@ class Solution(object):
             head = head.next
             p = tmp.next
         return dummy.next
+    
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        heap = []
+        for i in range(len(lists)):
+            if lists[i]:
+                heapq.heappush(heap, (lists[i].val, i))
+        
+        dummy = ListNode(0)
+        curr = dummy
+        while heap:
+            val, i = heapq.heappop(heap)
+            curr.next = lists[i]
+            curr = curr.next
+            if lists[i].next:
+                lists[i] = lists[i].next
+                heapq.heappush(heap, (lists[i].val, i))
+        return dummy.next
