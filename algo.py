@@ -1107,3 +1107,21 @@ class Solution(object):
             temp.next = None
             add(temp)
         return dummy.next
+
+    def sortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        arr = []
+        while head:
+            arr.append(head.val)
+            head = head.next
+        
+        arr.sort()
+        dummy = ListNode(0)
+        curr = dummy
+        for i in range(len(arr)):
+            curr.next = ListNode(arr[i])
+            curr = curr.next
+        return dummy.next
