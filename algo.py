@@ -916,3 +916,18 @@ class Solution(object):
             prev = curr
             curr = n
         return prev
+    
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        seen = set()
+        while headA:
+            seen.add(headA)
+            headA = headA.next
+        while headB:
+            if headB in seen:
+                return headB
+            headB = headB.next
+        return None
