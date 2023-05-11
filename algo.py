@@ -949,3 +949,35 @@ class Solution(object):
             null_checker = null_checker.next
         first.val, last.val = last.val, first.val
         return head
+
+    def reverseKGroup(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        jump = dummy
+        dummy.next = head
+        left = right = head
+
+        while True:
+            count = 0
+            while right and count < k:
+                count += 1
+                right = right.next
+            
+            if count == k:
+                prev = right
+                curr = left
+                for i in range(k):
+                    nxt = curr.next
+                    curr.next = prev
+                    prev = curr
+                    curr = nxt
+                jump.next = prev
+                jump = left
+                left = right
+
+            else:
+                return dummy.next
