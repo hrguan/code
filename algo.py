@@ -1171,3 +1171,34 @@ class Solution(object):
         for i in range(k-1):
             heapq.heappop(heap)
         return heapq.heappop(heap)*-1
+    
+    def reorganizeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        d = collections.Counter(s)
+
+        heap = []
+        for key, value in d.items():
+            heapq.heappush(heap, (-value, key))
+        
+        max_count, max_char = heapq.heappop(heap)
+        if max_count*-1 > (len(s)+1)//2:
+            return ""
+        
+        idx = 0
+        res = ["" for i in range(len(s))]
+        
+        for i in range((max_count*-1)):
+            res[idx] = max_char
+            idx += 2
+        while heap:
+            count, char = heapq.heappop(heap)
+            for i in range(count*-1):
+                if idx >= len(s):
+                    idx = 1
+                if idx < len(s):
+                    res[idx] = char
+                    idx += 2
+        return ''.join(res)
