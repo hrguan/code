@@ -1158,3 +1158,16 @@ class Solution(object):
                 tail = pre
             group += 1
         return head
+
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        heap = []
+        for num in nums:
+            heapq.heappush(heap, -num)
+        for i in range(k-1):
+            heapq.heappop(heap)
+        return heapq.heappop(heap)*-1
