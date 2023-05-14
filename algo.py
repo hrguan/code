@@ -1198,7 +1198,25 @@ class Solution(object):
             for i in range(count*-1):
                 if idx >= len(s):
                     idx = 1
-                if idx < len(s):
-                    res[idx] = char
-                    idx += 2
+                res[idx] = char
+                idx += 2
         return ''.join(res)
+
+    def kClosest(self, points, k):
+        """
+        :type points: List[List[int]]
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        heap = []
+        for x, y in points:
+            temp = math.pow(x, 2) + math.pow(y, 2)
+            distance = math.sqrt(temp)
+
+            heapq.heappush(heap, (distance, [x, y]))
+        res = []
+        while k > 0:
+            distance, point = heapq.heappop(heap)
+            res.append(point)
+            k -= 1
+        return res
