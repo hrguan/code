@@ -1310,3 +1310,32 @@ class Solution(object):
         m = sorted(weights[i]+weights[i-1] for i in range(1, len(weights)))
 
         return sum(m[-k+1:]) - sum(m[:k-1])
+
+    def findCheapestPrice(self, n, flights, src, dst, k):
+        """
+        :type n: int
+        :type flights: List[List[int]]
+        :type src: int
+        :type dst: int
+        :type k: int
+        :rtype: int
+        """
+        adj = [[] for i in range(n)]
+        for s, d, c in flights:
+            adj[s].append((d, c))
+        stop = 0
+        q = collections.deque()
+        q.append((src, 0))
+        
+        cost = [ float("inf") for i in range(n)]
+        while q and stop <= k:
+            for i in range(len(q)):
+                curr, price = q.popleft()
+                for nei, c in adj[curr]:
+                    if price+c >= cost[nei]:
+                        continue
+                    cost[nei] = price+c
+                    q.append((nei, price+c))
+            stop += 1
+
+        return -1 if cost[dst] == float("inf") else cost[dst]
