@@ -1252,3 +1252,23 @@ class Solution(object):
             if len(heap)>k:
                 heapq.heappop(heap)
         return [k for v, k in heap]
+    
+    def kthSmallest(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: int
+        """
+        stack = []
+        curr = root
+        while True:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            if not stack:
+                break
+            node = stack.pop()
+            k -= 1
+            if k == 0:
+                return node.val
+            curr = node.right
