@@ -1373,3 +1373,48 @@ class Solution(object):
         ans = (max_count-1) * (n+1) + last
         print(ans, len(tasks))
         return max(ans, len(tasks))
+    
+        # if n == 0:
+        #     return len(tasks)
+        # counter = collections.Counter(tasks)
+        # res = 0
+        # n += 1
+        # while counter:
+        #     ready = counter.most_common(n)
+        #     res += len(ready)
+        #     for k, v in ready:
+        #         if counter[k] > 1:
+        #             counter[k] -= 1
+        #         else:
+        #             del counter[k]
+        #     if counter:
+        #         res += (n-len(ready))
+        # return res
+
+    def __init__(self):
+        self.low = []
+        self.high = []
+    def addNum(self, num):
+        """
+        :type num: int
+        :rtype: None
+        """
+        if len(self.low) == len(self.high):
+            heapq.heappush(self.low, -num)
+            n = heapq.heappop(self.low)
+            heapq.heappush(self.high, -n)
+
+        else:
+            heapq.heappush(self.high, num)
+            n = heapq.heappop(self.high)
+            heapq.heappush(self.low, -n)
+    def findMedian(self):
+        """
+        :rtype: float
+        """
+        if len(self.low) == len(self.high):
+            low = self.low[0] * -1
+            ans = (self.high[0] + low )/2.0
+            return ans
+        else:
+            return float(self.high[0])
