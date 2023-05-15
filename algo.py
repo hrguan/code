@@ -1339,3 +1339,19 @@ class Solution(object):
             stop += 1
 
         return -1 if cost[dst] == float("inf") else cost[dst]
+
+    def minStoneSum(self, piles, k):
+        """
+        :type piles: List[int]
+        :type k: int
+        :rtype: int
+        """
+        heap = []
+        for pile in piles:
+            heapq.heappush(heap, -pile)
+        for i in range(k):
+            curr = heapq.heappop(heap) * -1
+            remove = curr // 2
+            curr -= remove
+            heapq.heappush(heap, -curr)
+        return sum(heap) * -1
