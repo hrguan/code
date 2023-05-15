@@ -1355,3 +1355,21 @@ class Solution(object):
             curr -= remove
             heapq.heappush(heap, -curr)
         return sum(heap) * -1
+    
+    def leastInterval(self, tasks, n):
+        """
+        :type tasks: List[str]
+        :type n: int
+        :rtype: int
+        """
+        if n == 0:
+            return len(tasks)
+        
+        count = collections.Counter(tasks)
+        freq = count.values()
+        max_count = max(freq)
+        last = freq.count(max_count)
+
+        ans = (max_count-1) * (n+1) + last
+        print(ans, len(tasks))
+        return max(ans, len(tasks))
