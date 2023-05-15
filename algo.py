@@ -1418,3 +1418,24 @@ class Solution(object):
             return ans
         else:
             return float(self.high[0])
+        
+    def medianSlidingWindow(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[float]
+        """
+        from sortedcontainers import SortedList
+        res = []
+        sl = SortedList()
+        for i in range(len(nums)):
+            sl.add(nums[i])
+            if i < k-1:
+                continue
+            if k % 2 != 0:
+                res.append(sl[k//2]*1.0)
+            else:
+                s = (sl[k//2] + sl[k//2-1]) / 2.0
+                res.append(s)
+            sl.remove(nums[i-k+1])
+        return res
