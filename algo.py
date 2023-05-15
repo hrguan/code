@@ -1298,3 +1298,15 @@ class Solution(object):
 
 
         return used.index(max(used))
+
+    def putMarbles(self, weights, k):
+        """
+        :type weights: List[int]
+        :type k: int
+        :rtype: int
+        """
+        if k == 1 or len(weights) == k:
+            return 0
+        m = sorted(weights[i]+weights[i-1] for i in range(1, len(weights)))
+
+        return sum(m[-k+1:]) - sum(m[:k-1])
