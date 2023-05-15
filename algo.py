@@ -1272,3 +1272,29 @@ class Solution(object):
             if k == 0:
                 return node.val
             curr = node.right
+    
+    def mostBooked(self, n, meetings):
+        """
+        :type n: int
+        :type meetings: List[List[int]]
+        :rtype: int
+        """
+        available = [r for r in range(n)]
+        meeting_rooms = []
+        used = [0]*n
+        meetings.sort(key=lambda x:x[0])
+        for start, end in meetings:
+            while meeting_rooms and meeting_rooms[0][0] <= start:
+                ending, room_no = heapq.heappop(meeting_rooms)
+                heapq.heappush(available, room_no)
+            if available:
+                room_no = heapq.heappop(available)
+                heapq.heappush(meeting_rooms, (end, room_no))
+                used[room_no] += 1
+            else:
+                ending, room_no = heapq.heappop(meeting_rooms)
+                heapq.heappush(meeting_rooms, (end+ending-start, room_no))
+                used[room_no] += 1
+
+
+        return used.index(max(used))
