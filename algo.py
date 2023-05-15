@@ -1220,3 +1220,22 @@ class Solution(object):
             res.append(point)
             k -= 1
         return res
+    
+    def __init__(self, k, nums):
+        """
+        :type k: int
+        :type nums: List[int]
+        """
+        self.k = k
+        self.heap = nums[:k]
+        heapq.heapify(self.heap)
+        for i in range(k, len(nums)):
+            heapq.heappush(self.heap, nums[i])
+            heapq.heappop(self.heap)
+
+    def add(self, val):
+        heapq.heappush(self.heap, val)
+        if len(self.heap)> self.k:
+            heapq.heappop(self.heap)
+        return self.heap[0]
+    
