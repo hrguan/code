@@ -1238,4 +1238,17 @@ class Solution(object):
         if len(self.heap)> self.k:
             heapq.heappop(self.heap)
         return self.heap[0]
-    
+
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        count = collections.Counter(nums)
+        heap = []
+        for key, value in count.items():
+            heapq.heappush(heap, (value, key))
+            if len(heap)>k:
+                heapq.heappop(heap)
+        return [k for v, k in heap]
