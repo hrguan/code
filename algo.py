@@ -1663,3 +1663,23 @@ class Solution(object):
                 heapq.heappush(heap, (MIN*2, MAX))
                 max_num = max(max_num, MIN*2)
         return res
+
+    def findMaximizedCapital(self, k, w, profits, capital):
+        """
+        :type k: int
+        :type w: int
+        :type profits: List[int]
+        :type capital: List[int]
+        :rtype: int
+        """
+        projects = [(capital[i], profits[i]) for i in range(len(profits))]
+        projects.sort()
+        heap = []
+        for _ in range(k):
+            while projects and projects[0][0] <= w:
+                capital, profit = projects.pop(0)
+                heapq.heappush(heap, -profit)
+            if not heap:
+                break
+            w -= heapq.heappop(heap)
+        return w
