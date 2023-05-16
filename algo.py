@@ -1463,3 +1463,23 @@ class Solution(object):
             else:
                 r = mid
         return l
+
+    def kSmallestPairs(self, nums1, nums2, k):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        heap = []
+        for i in range(min(k, len(nums1))):
+            heapq.heappush(heap, (nums1[i]+nums2[0], nums1[i], nums2[0], 0))
+        
+        res = []
+        while k > 0 and heap:
+            sum, n1, n2, idx = heapq.heappop(heap)
+            res.append([n1, n2])
+            if idx + 1 < len(nums2):
+                heapq.heappush(heap, (n1+nums2[idx + 1], n1, nums2[idx + 1], idx + 1))
+            k -= 1
+        return res
