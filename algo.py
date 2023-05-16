@@ -1597,3 +1597,42 @@ class Solution(object):
             if flip_queue and i >= flip_queue[0]:
                 flip_queue.popleft()
         return -1 if flip_queue else flip_count
+
+    def minWindow(self, s1, s2):
+        """
+        :type s1: str
+        :type s2: str
+        :rtype: str
+        """
+        if len(s2) > len(s1):
+            return ""
+        def find_end(start1):
+            start2 = 0
+            while start1 < len(s1):
+                if s1[start1] == s2[start2]:
+                    start2+=1
+                    if start2 == len(s2):
+                        break
+                start1+=1
+            return start1 if start2 == len(s2) else None
+        def better_start(end1):
+            end2 = len(s2)-1
+            while end2 >= 0:
+                if s1[end1] == s2[end2]:
+                    end2 -=1
+                end1 -=1
+            return end1+1
+
+        start1 = 0
+        res = ""
+        length = float("inf")
+        while start1 < len(s1):
+            end = find_end(start1)
+            if end == None:
+                break
+            b_start = better_start(end)
+            if end-b_start+1 < length:
+                length = end-b_start+1
+                res = s1[b_start:end+1]
+            start1 = b_start+1
+        return res
