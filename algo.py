@@ -1439,3 +1439,27 @@ class Solution(object):
                 res.append(s)
             sl.remove(nums[i-k+1])
         return res
+
+    def kthSmallest(self, matrix, k):
+        """
+        :type matrix: List[List[int]]
+        :type k: int
+        :rtype: int
+        """
+        l = matrix[0][0]
+        r = matrix[-1][-1]
+
+        def less_k(m):
+            res = 0
+            for i in range(len(matrix)):
+                cnt = bisect_right(matrix[i], m)
+                res += cnt
+            return res
+
+        while l < r:
+            mid = (l+r) // 2
+            if less_k(mid) < k:
+                l = mid+1
+            else:
+                r = mid
+        return l
