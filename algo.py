@@ -1513,3 +1513,33 @@ class Solution(object):
                 r = i-1
             else:
                 l = i+1
+
+    def subarraysWithKDistinct(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        def atMost(nums, k):
+            res = 0
+            d = dict()
+            left = 0
+            right = 0
+            for i in range(len(nums)):
+                if nums[i] not in d:
+                    d[nums[i]] = 1
+                else:
+                    d[nums[i]] += 1
+                
+                while len(d) > k:
+                    d[nums[left]] -= 1
+                    if d[nums[left]] == 0:
+                        del d[nums[left]]
+                    left += 1
+                
+                res += right-left+1
+                right +=1
+                
+            return res
+
+        return atMost(nums, k) - atMost(nums, k-1)
