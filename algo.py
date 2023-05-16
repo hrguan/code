@@ -1636,3 +1636,30 @@ class Solution(object):
                 res = s1[b_start:end+1]
             start1 = b_start+1
         return res
+
+    def minimumDeviation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        heap = []
+        for num in nums:
+            if num % 2 !=0:
+                heap.append((num, num*2))
+            else:
+                temp = num
+                while temp%2==0:
+                    temp //=2
+                heap.append((temp, max(temp*2, num))) 
+        max_num = max([i for i, j in heap])
+        heapq.heapify(heap)
+
+        res = float("inf")
+        while len(heap) == len(nums):
+            MIN, MAX = heapq.heappop(heap)
+            if max_num - MIN < res:
+                res = max_num - MIN
+            if MIN < MAX:
+                heapq.heappush(heap, (MIN*2, MAX))
+                max_num = max(max_num, MIN*2)
+        return res
