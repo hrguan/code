@@ -1556,3 +1556,26 @@ class Solution(object):
         while heap:
             res.append(heapq.heappop(heap))
         return res
+
+    def getOrder(self, tasks):
+        """
+        :type tasks: List[List[int]]
+        :rtype: List[int]
+        """
+        res = []
+        heap = []
+        tasks = sorted((task, i) for i, task in enumerate(tasks))
+        i = 0
+        curr = 0
+        
+        for (e, p), i in tasks:
+            while heap and curr < e:
+                proc, idx, en = heapq.heappop(heap)
+                res.append(idx)
+                curr = max(curr, en) + proc
+            heapq.heappush(heap, (p, i, e))
+        while heap:
+            proc, idx, en = heapq.heappop(heap)
+            res.append(idx)
+
+        return res
