@@ -1579,3 +1579,21 @@ class Solution(object):
             res.append(idx)
 
         return res
+
+    def minKBitFlips(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        flip_count = 0
+        flip_queue = collections.deque()
+        for i,num in enumerate(nums):
+            condition1 = num==0 and len(flip_queue)%2==0
+            condition2 = num==1 and len(flip_queue)%2!=0
+            if condition1 or condition2:
+                flip_count += 1
+                flip_queue.append(i+k-1)
+            if flip_queue and i >= flip_queue[0]:
+                flip_queue.popleft()
+        return -1 if flip_queue else flip_count
