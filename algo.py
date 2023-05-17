@@ -1720,5 +1720,22 @@ class Solution(object):
                 left = mid+1
         return nums[right]
 
+    def __init__(self, w):
+        """
+        :type w: List[int]
+        """
+        self.accu = []
+        self.total = 0
+        for weight in w:
+            self.total+=weight
+            self.accu.append(self.total)
+
+    def pickIndex(self):
+        """
+        :rtype: int
+        """
+        a = random.randint(1, self.total)
+        return bisect.bisect_left(self.accu, a)
+
 
     
