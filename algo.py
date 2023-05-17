@@ -1698,6 +1698,27 @@ class Solution(object):
             else:
                 right=mid
         return left
+    
+    def singleNonDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left = 0
+        right = len(nums)-1
+        if len(nums) == 1:
+            return nums[0]
+        while left<=right:
+            mid = (left+right)//2
+            if (mid+1 <len(nums) and nums[mid]!=nums[mid+1]) and (mid-1 >= 0 and nums[mid]!=nums[mid-1]):
+                return nums[mid]
+            a = mid%2==0 and nums[mid]==nums[mid-1]
+            b = mid%2!=0 and nums[mid]==nums[mid+1]
+            if a or b:
+                right = mid-1
+            else:
+                left = mid+1
+        return nums[right]
 
 
     
