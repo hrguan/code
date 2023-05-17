@@ -1683,3 +1683,21 @@ class Solution(object):
                 break
             w -= heapq.heappop(heap)
         return w
+    
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        left = 1
+        right = n
+        while left < right:
+            mid = (left+right)//2
+            if isBadVersion(mid) == False:
+                left=mid+1
+            else:
+                right=mid
+        return left
+
+
+    
