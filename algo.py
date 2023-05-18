@@ -1826,6 +1826,33 @@ class Solution(object):
         if start<len(gas) and trip >= 0:
             return start
         return -1
+    
+    def minRefuelStops(self, target, startFuel, stations):
+        """
+        :type target: int
+        :type startFuel: int
+        :type stations: List[List[int]]
+        :rtype: int
+        """
+        stations.append([target, 0])
+        res = 0
+        prev = 0
+        currfuel = startFuel
+        available = []
+        for position, fuel in stations:
+            distance = position - prev
+            prev = position
+            if currfuel < distance:
+                while available and currfuel < distance:
+                    gas = heapq.heappop(available)*-1
+                    currfuel += gas
+                    res += 1
+                if currfuel < distance:
+                    return -1
+
+            currfuel -= distance
+            heapq.heappush(available, -fuel)
+        return res
 
 
     
