@@ -1930,5 +1930,16 @@ class Solution(object):
                 dp[i] = min(dp[i], dp[i-coin]+1)
         return -1 if dp[amount] == float("inf") else dp[amount]
 
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        last = len(nums)-1
+        for i in range(len(nums)-2, -1, -1):
+            if nums[i]+i >= last:
+                last = i
+        return last == 0
+
 
     
