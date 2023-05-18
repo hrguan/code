@@ -1940,6 +1940,18 @@ class Solution(object):
             if nums[i]+i >= last:
                 last = i
         return last == 0
-
+    
+    def jump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        dp = [0]*len(nums)
+        j = 0
+        for i in range(1, len(nums)):
+            while j < len(nums) and j+nums[j] < i:
+                j+=1
+            dp[i] = dp[j]+1 
+        return dp[-1]
 
     
