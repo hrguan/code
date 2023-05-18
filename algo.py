@@ -1900,6 +1900,22 @@ class Solution(object):
             res = n0+n1+n2
             n0, n1, n2 = n1, n2, res
         return res
+    
+    def canPartition(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        total = sum(nums)
+        if total % 2 != 0:
+            return False
+        half = total //2
+        dp = [False] * (half+1)
+        dp[0] = True
+        for num in nums:
+            for i in range(half, num-1, -1):
+                dp[i] = dp[i] or dp[i-num]
+        return dp[half]
 
 
     
