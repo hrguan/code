@@ -1854,5 +1854,15 @@ class Solution(object):
             heapq.heappush(available, -fuel)
         return res
 
+    def twoCitySchedCost(self, costs):
+        """
+        :type costs: List[List[int]]
+        :rtype: int
+        """
+        SUM_B = sum(j for i, j in costs)
+        diff = sorted(i-j for i, j in costs)
+        save = sum(diff[:len(costs)//2])
+        return SUM_B+save
+
 
     
