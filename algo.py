@@ -1807,6 +1807,25 @@ class Solution(object):
                 res += 1
                 high -= 1
         return res
+    
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        trip = 0
+        curr = 0
+        start = 0
+        for i in range(len(gas)):
+            trip += gas[i] - cost[i]
+            curr += gas[i] - cost[i]
+            if curr < 0:
+                curr = 0
+                start = i+1
+        if start<len(gas) and trip >= 0:
+            return start
+        return -1
 
 
     
