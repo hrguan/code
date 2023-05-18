@@ -1787,6 +1787,26 @@ class Solution(object):
                     right -= 1
 
         return False
+    
+    def numRescueBoats(self, people, limit):
+        """
+        :type people: List[int]
+        :type limit: int
+        :rtype: int
+        """
+        people.sort()
+        low = 0
+        high = len(people)-1
+        res = 0
+        while low<=high:
+            if people[low]+people[high] <= limit:
+                res += 1
+                low += 1
+                high -= 1
+            else:
+                res += 1
+                high -= 1
+        return res
 
 
     
