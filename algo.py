@@ -2010,4 +2010,20 @@ class Solution(object):
         for i in range(1, len(nums)):
             if nums[i] - nums[i-1] > gap:
                 gap = nums[i] - nums[i-1]
-        return ga
+        return gap
+    
+    def largestNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+        def comparator(x1, x2):
+            if x1+x2 > x2+x1:
+                return 1
+            elif x1+x2 < x2+x1:
+                return -1
+            return 0
+        
+        nums = [str(num) for num in nums]
+        nums.sort(key=functools.cmp_to_key(comparator), reverse=True)
+        return "0" if nums[0] == "0" else "".join(nums)
