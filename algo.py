@@ -1954,4 +1954,17 @@ class Solution(object):
             dp[i] = dp[j]+1 
         return dp[-1]
 
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        start = 0
+        nums.sort()
+        for num in nums:
+            if num == start:
+                start += 1
+            else:
+                return start
+        return start
     
