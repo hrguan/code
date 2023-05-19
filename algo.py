@@ -2038,3 +2038,25 @@ class Solution(object):
             nums[i] = n.pop(0)
         for i in range(0, len(nums), 2):
             nums[i] = n.pop(0)
+
+    def rearrangeBarcodes(self, barcodes):
+        """
+        :type barcodes: List[int]
+        :rtype: List[int]
+        """
+        d = collections.Counter(barcodes)
+        heap = []
+        for k, v in d.items():
+            heapq.heappush(heap, (-v, k))
+        res = [None]*len(barcodes)
+        i = 0
+        while heap:
+            count, key = heapq.heappop(heap)
+            while count != 0:
+                if i >= len(res):
+                    i = 1
+                res[i] = key
+                i += 2
+                count += 1
+
+        return res
