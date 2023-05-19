@@ -1997,3 +1997,17 @@ class Solution(object):
             if nums[i] != i+1:
                 return i+1
         return n+1
+    
+    def maximumGap(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) < 2:
+            return 0
+        nums.sort()
+        gap = 0
+        for i in range(1, len(nums)):
+            if nums[i] - nums[i-1] > gap:
+                gap = nums[i] - nums[i-1]
+        return ga
