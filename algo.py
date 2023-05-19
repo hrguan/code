@@ -2027,3 +2027,14 @@ class Solution(object):
         nums = [str(num) for num in nums]
         nums.sort(key=functools.cmp_to_key(comparator), reverse=True)
         return "0" if nums[0] == "0" else "".join(nums)
+    
+    def wiggleSort(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        n = sorted(nums, reverse=True)
+        for i in range(1, len(nums), 2):
+            nums[i] = n.pop(0)
+        for i in range(0, len(nums), 2):
+            nums[i] = n.pop(0)
