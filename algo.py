@@ -2101,3 +2101,25 @@ class Solution(object):
             else:
                 stack.append(s[i])
         return ''.join(stack)
+
+    def minRemoveToMakeValid(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+        ss = list(s)
+        for i in range(len(ss)):
+            if ss[i] == "(":
+                stack.append(i)
+            elif ss[i] == ")":
+                if stack:
+                    stack.pop()
+                else:
+                    ss[i] = ""
+        if stack:
+            for idx in stack:
+                ss[idx] = ""
+
+
+        return "".join(ss)
