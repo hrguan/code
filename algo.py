@@ -2123,3 +2123,31 @@ class Solution(object):
 
 
         return "".join(ss)
+
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        preCourse_canTake = collections.defaultdict(list)
+        degree = [0] * numCourses
+        for course, pre in prerequisites:
+            preCourse_canTake[pre].append(course)
+            degree[course] += 1
+        
+        queue = deque()
+        for i in range(len(degree)):
+            if degree[i] == 0:
+                queue.append(i)
+        while queue:
+            curr = queue.popleft()
+            for canTake in preCourse_canTake[curr]:
+                degree[canTake] -= 1
+                if degree[canTake] == 0:
+                    queue.append(canTake)
+    
+        for i in range(len(degree)):
+            if degree[i] != 0:
+                return False
+        return True
