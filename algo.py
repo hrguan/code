@@ -2189,6 +2189,5 @@ class Solution(object):
                 cnt += right - left
                 right += 1
             else:
-                left += 1 
-                
+                left += 1       
         return cnt
