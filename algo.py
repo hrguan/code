@@ -2179,6 +2179,7 @@ class Solution(object):
                 
         return res if len(res) == numCourses else []
 
+##################################
     def num_perfect_pairs(arr):
         arr.sort(key=lambda x:abs(x))
         left = 0
@@ -2208,7 +2209,7 @@ class Solution(object):
             else:
                 return cnt
             
-    def numWays(self, words, target):
+    def string_formation(self, words, target):
         """
         :type words: List[str]
         :type target: str
@@ -2227,7 +2228,7 @@ class Solution(object):
 
         return dp[-1] 
 
-    def smallestMax(a):
+    def max_array_value(a):
         i, j = min(a), max(a)
         while i < j:
             m = (i + j) // 2
@@ -2247,3 +2248,16 @@ class Solution(object):
             else:
                 i = m + 1
         return i
+    
+    def task_scheduling(n, c, t):
+        def f(i, j, memo):
+            if i == n:
+                return [float('inf'), 0][j >= 0]
+            if (i, j) in memo:
+                return memo[(i, j)]
+        
+            result = min(c[i] + f(i + 1, j + t[i], memo), f(i + 1, j - 1, memo))
+            memo[(i, j)] = result
+            return result
+        memo = {}
+        return f(0, 0, memo)
