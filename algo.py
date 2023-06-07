@@ -2193,3 +2193,18 @@ class Solution(object):
             else:
                 left += 1
         return cnt
+
+    def job_execution(n, executionTime, x, y):
+        executionTime.sort(reverse=True)
+        i = 0
+        cnt = 0
+        while True:
+            if executionTime[i] > 0:
+                executionTime[i] -= x
+                for j in range(1, len(executionTime)):
+                    executionTime[j] -= y
+                executionTime.sort(reverse=True)
+                cnt += 1
+                print(executionTime)
+            else:
+                return cnt
