@@ -2226,3 +2226,24 @@ class Solution(object):
                 dp[j+1]%= (10**9+7)
 
         return dp[-1] 
+
+    def smallestMax(a):
+        i, j = min(a), max(a)
+        while i < j:
+            m = (i + j) // 2
+            avail = 0
+            canMake = True
+            for el in a:
+                if el <= m:
+                    avail += m - el
+                else:
+                    mustSubtract = max(0, el - m)
+                    if mustSubtract > avail:
+                        canMake = False
+                        break
+                    avail -= mustSubtract
+            if canMake:
+                j = m
+            else:
+                i = m + 1
+        return i
