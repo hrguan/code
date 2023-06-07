@@ -2205,6 +2205,24 @@ class Solution(object):
                     executionTime[j] -= y
                 executionTime.sort(reverse=True)
                 cnt += 1
-                print(executionTime)
             else:
                 return cnt
+            
+    def numWays(self, words, target):
+        """
+        :type words: List[str]
+        :type target: str
+        :rtype: int
+        """
+        dp=[0]*(len(target)+1)
+        dp[0]=1
+        count=[[0]*26 for _ in range(len(words[0]))]
+        for i in range(len(words[0])):
+            for word in words:
+                count[i][ord(word[i])-ord('a')]+=1
+        for i in range(len(words[0])):
+            for j in range(len(target)-1,-1,-1):
+                dp[j+1]+= dp[j]*count[i][ord(target[j])-ord('a')]
+                dp[j+1]%= (10**9+7)
+
+        return dp[-1] 
