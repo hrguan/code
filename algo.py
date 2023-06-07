@@ -2180,13 +2180,15 @@ class Solution(object):
         return res if len(res) == numCourses else []
 
     def num_perfect_pairs(arr):
-        arr.sort(key = lambda x: abs(x))
-        left, right, cnt = 0, 1, 0
+        arr.sort(key=lambda x:abs(x))
+        left = 0
+        right = 1
+        cnt = 0
         while left < len(arr)-1 and right < len(arr):
             x = abs(arr[left])
             y = abs(arr[right])
-            if y <= 2 *x:
-                cnt += right - left
+            if y <= 2*x:
+                cnt += right-left
                 right += 1
             else:
                 left += 1
