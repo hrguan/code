@@ -2261,3 +2261,16 @@ class Solution(object):
             return result
         memo = {}
         return f(0, 0, memo)
+    
+    def cross_the_threshold(n, initEnergy, threshold):
+        res = 0
+        s = sum(initEnergy)
+        while s > threshold:
+            res += 1
+            temp = 0
+            for i in range(n):
+                initEnergy[i] -= 1
+                if initEnergy[i] > 0:
+                    temp += initEnergy[i]
+            s = temp
+        return res -1
