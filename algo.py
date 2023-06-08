@@ -2274,3 +2274,5 @@ class Solution(object):
                     temp += initEnergy[i]
             s = temp
         return res -1
+
+        
