@@ -2275,7 +2275,19 @@ class Solution(object):
             s = temp
         return res -1
 
-        #https://www.geeksforgeeks.org/number-of-distinct-words-of-size-n-with-at-most-k-contiguous-vowels/
+    #https://www.geeksforgeeks.org/number-of-distinct-words-of-size-n-with-at-most-k-contiguous-vowels/
+    def power(x, y, p):
+        result = 1
+        x = x % p
+        if x == 0:
+            return 0
+        while y > 0:
+            if y % 2 == 1:
+                result = (result * x) % p
+            y = y // 2
+            x = (x * x) % p
+        return result
+
     def power(x, y, p):
         res = 1
         x = x % p
@@ -2302,6 +2314,7 @@ class Solution(object):
                     dp[i][j] = 0
                 elif (j == i):
                     dp[i][j] = power(5, i, MOD)
+                    #dp[i][j] = (5 ** i) % MOD
                 else:
                     dp[i][j] = dp[i - 1][j - 1] * 5
                 dp[i][j] %= MOD
