@@ -2346,3 +2346,22 @@ class Solution(object):
         res = []
         backtrack(0, len(nums), [])
         return res
+
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        def backtrack(start, end, tmp):
+            res.append(tmp[:])
+            for i in range(start, end):
+                if i != start and nums[i] == nums[i-1]:
+                    continue
+                tmp.append(nums[i])
+                backtrack(i+1, len(nums), tmp)
+                tmp.pop()
+
+        nums.sort()     
+        res = []
+        backtrack(0, len(nums), [])
+        return res
