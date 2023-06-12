@@ -2335,3 +2335,14 @@ class Solution(object):
         res = []
         dfs(sorted(nums), 0, [], res)
         return res
+    
+        def backtrack(start, end, tmp):
+            res.append(tmp[:])
+            for i in range(start, end):
+                tmp.append(nums[i])
+                backtrack(i+1, len(nums), tmp)
+                tmp.pop()
+                
+        res = []
+        backtrack(0, len(nums), [])
+        return res
