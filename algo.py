@@ -2412,11 +2412,33 @@ class Solution(object):
             if target < 0:
                 return 
             if target == 0:
-                res.append(temp[:])
+                return res.append(temp[:])
             for i in range(idx, len(candidates)):
                 temp.append(candidates[i])
                 backtrack(i, temp, target-candidates[i])
                 temp.pop()
         res = []
+        backtrack(0, [], target)
+        return res
+
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        def backtrack(idx, temp, target):
+            if target < 0:
+                return 
+            if target == 0:
+                return res.append(temp[:])
+            for i in range(idx, len(candidates)):
+                if i!=idx and candidates[i] == candidates[i-1]:
+                    continue
+                temp.append(candidates[i])
+                backtrack(i+1, temp, target-candidates[i])
+                temp.pop()
+        res = []
+        candidates.sort()
         backtrack(0, [], target)
         return res
