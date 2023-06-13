@@ -2401,3 +2401,22 @@ class Solution(object):
         res = []
         backtrack(k, [], 1)
         return res
+    
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        def backtrack(idx, temp, target):
+            if target < 0:
+                return 
+            if target == 0:
+                res.append(temp[:])
+            for i in range(idx, len(candidates)):
+                temp.append(candidates[i])
+                backtrack(i, temp, target-candidates[i])
+                temp.pop()
+        res = []
+        backtrack(0, [], target)
+        return res
