@@ -2384,3 +2384,20 @@ class Solution(object):
         res = []
         backtrack(nums, [], res)
         return res
+    
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        def backtrack(remain, temp, idx):
+            if remain == 0:
+                res.append(temp[:])
+            for i in range(idx, n+1):
+                temp.append(i)
+                backtrack(remain-1, temp, i+1)
+                temp.pop()
+        res = []
+        backtrack(k, [], 1)
+        return res
