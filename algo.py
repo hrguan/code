@@ -2366,6 +2366,23 @@ class Solution(object):
         backtrack(0, len(nums), [])
         return res
 
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        if not digits:
+            return []
+        phone = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl", "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
+        res = []
+        def backtrack(temp, digits):
+            if not digits:
+                return res.append(temp)
+            for letter in phone[digits[0]]:
+                backtrack(temp+letter, digits[1:])
+        backtrack("", digits)
+        return res
+
     def permute(self, nums):
         """
         :type nums: List[int]
