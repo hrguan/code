@@ -2382,6 +2382,27 @@ class Solution(object):
                 backtrack(temp+letter, digits[1:])
         backtrack("", digits)
         return res
+    
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        def backtrack(open, close, temp):
+            if open == close == n:
+                return res.append("".join(temp))
+            if open < n:
+                temp.append("(")
+                backtrack(open+1, close, temp)
+                temp.pop()
+            if close < n and open>close:
+                temp.append(")")
+                backtrack(open, close+1, temp)
+                temp.pop()
+
+        res = []
+        backtrack(0, 0, [])
+        return res
 
     def permute(self, nums):
         """
