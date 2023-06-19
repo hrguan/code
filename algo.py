@@ -2486,6 +2486,10 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
+        # if not root:
+        #     return 0
+        # return max(self.maxDepth(root.left), self.maxDepth(root.right))+1
+    
         if not root:
             return 0
         level = 0
@@ -2503,5 +2507,18 @@ class Solution(object):
                 level += 1
                 level_nodes = len(q)
         return level
+    
+    def invertTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if not root:
+            return None
+        root.left, root.right = root.right, root.left
+        self.invertTree(root.right)
+        self.invertTree(root.left)
+        
+        return root
 
     
