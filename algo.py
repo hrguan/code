@@ -2521,4 +2521,19 @@ class Solution(object):
         
         return root
 
+    def diameterOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.ans = 0
+        def dfs(node):
+            if not node:
+                return 0
+            left = dfs(node.left)
+            right = dfs(node.right)
+            self.ans = max(self.ans, left+right)
+            return max(left, right) + 1
+        dfs(root)
+        return self.ans
     
