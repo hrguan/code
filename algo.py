@@ -2551,4 +2551,22 @@ class Solution(object):
         root.left = None
         root.right = self.prev
         self.prev = root
+
+    def maxPathSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        self.res = float("-inf")
+        def dfs(node):
+            if not node:
+                return 0
+            left = max(dfs(node.left), 0)
+            right = max(dfs(node.right), 0)
+            self.res = max(self.res, left+right+node.val)
+            return node.val + max(left, right)
+        dfs(root)
+        return self.res
     
