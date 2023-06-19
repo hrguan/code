@@ -2480,3 +2480,28 @@ class Solution(object):
         candidates.sort()
         backtrack(0, [], target)
         return res
+ 
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        level = 0
+        level_nodes = 1
+        q = deque()
+        q.append(root)
+        while q:
+            node = q.popleft()
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+            level_nodes -= 1
+            if level_nodes == 0:
+                level += 1
+                level_nodes = len(q)
+        return level
+
+    
