@@ -2569,4 +2569,37 @@ class Solution(object):
             return node.val + max(left, right)
         dfs(root)
         return self.res
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        s = []
+        def dfs(root):
+            if not root:
+                return s.append('n')
+            s.append(str(root.val))
+            dfs(root.left)
+            dfs(root.right)
+        dfs(root)
+        return ' '.join(s)      
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        q = deque(data.split())
+        def dfs():
+            node = q.popleft()
+            if node == 'n':
+                return None
+            root = TreeNode(node)
+            root.left = dfs()
+            root.right = dfs()
+            return root
+        return dfs()
     
