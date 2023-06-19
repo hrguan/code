@@ -2536,4 +2536,19 @@ class Solution(object):
             return max(left, right) + 1
         dfs(root)
         return self.ans
+
+    def __init__(self):
+        self.prev = None
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: None Do not return anything, modify root in-place instead.
+        """
+        if not root:
+            return None
+        self.flatten(root.right)
+        self.flatten(root.left)
+        root.left = None
+        root.right = self.prev
+        self.prev = root
     
