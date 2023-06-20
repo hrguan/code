@@ -2625,6 +2625,34 @@ class Solution(object):
         if root:
             bfs([root])
         return res
+    
+    def zigzagLevelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        def bfs(k, flag):
+            if len(k) == 0:
+                return
+            temp = []
+            new = []
+            for node in k:
+                temp.append(node.val)
+                if node.left:
+                    new.append(node.left)
+                if node.right:
+                    new.append(node.right)
+            if flag == 1:    
+                res.append(temp)
+            else:
+                res.append(temp[::-1])
+            flag *= -1
+            bfs(new, flag)
+        res = []
+        flag = 1
+        if root:
+            bfs([root], flag)
+        return res
 
     
     
