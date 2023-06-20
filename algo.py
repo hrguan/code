@@ -2654,5 +2654,23 @@ class Solution(object):
             bfs([root], flag)
         return res
 
+    def connect(self, root):
+        """
+        :type root: Node
+        :rtype: Node
+        """
+        if not root:
+            return
+        q = [root]
+        while q:
+            curr = q.pop(0)
+            if curr.left and curr.right:
+                curr.left.next = curr.right
+                if curr.next:
+                    curr.right.next = curr.next.left
+                q.append(curr.left)
+                q.append(curr.right)
+        return root
+
     
     
