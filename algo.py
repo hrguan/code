@@ -2672,5 +2672,30 @@ class Solution(object):
                 q.append(curr.right)
         return root
 
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        stack = [root]
+        parent = {root: None}
+        while p not in parent or q not in parent:
+            node = stack.pop()
+            if node.left:
+                stack.append(node.left)
+                parent[node.left] = node
+            if node.right:
+                stack.append(node.right)
+                parent[node.right] = node
+        common = set()
+        while p:
+            common.add(p)
+            p = parent[p]
+        while q not in common:
+            q = parent[q]
+        return q
+
     
     
