@@ -2681,7 +2681,7 @@ class Solution(object):
         """
         stack = [root]
         parent = {root: None}
-        while p not in parent or q not in parent:
+        while not(p in parent and q in parent):
             node = stack.pop()
             if node.left:
                 stack.append(node.left)
@@ -2696,6 +2696,27 @@ class Solution(object):
         while q not in common:
             q = parent[q]
         return q
-
+    
+    def verticalTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        dic = collections.defaultdict(list)
+        
+        def helper(placement, level, node):
+            if not node:
+                return
+            dic[placement].append((level, node.val))
+            helper(placement-1, level+1, node.left)
+            helper(placement+1, level+1, node.right)
+        helper(0, 0, root)
+        res = []
+        for i in sorted(dic.keys()):
+            temp = []
+            for j in sorted(dic[i]):
+                temp.append(j[1])
+            res.append(temp)
+        return res
     
     
