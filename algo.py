@@ -2603,3 +2603,28 @@ class Solution(object):
             return root
         return dfs()
     
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        def bfs(k):
+            if len(k) == 0:
+                return
+            temp = []
+            new = []
+            for node in k:
+                temp.append(node.val)
+                if node.left:
+                    new.append(node.left)
+                if node.right:
+                    new.append(node.right)
+            res.append(temp)
+            bfs(new)
+        res = []
+        if root:
+            bfs([root])
+        return res
+
+    
+    
