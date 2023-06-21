@@ -2782,3 +2782,20 @@ class Solution(object):
         for num in nums1:
             res.append(d[num])
         return res
+    
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        s1 = []
+        s2 = []
+        for n in s:
+            s1.append(s.index(n))
+        for n in t:
+            s2.append(t.index(n))
+        print(s1, s2)
+        if s1 == s2:
+            return True
+        return False
