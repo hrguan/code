@@ -2763,3 +2763,22 @@ class Solution(object):
                 return True
             else:
                 return False
+    
+    def nextGreaterElement(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        res = []
+        stack = []
+        d = {}
+        for num in nums2:
+            while stack and num > stack[-1]:
+                d[stack.pop()] = num
+            stack.append(num)
+        while stack:
+            d[stack.pop()] = -1
+        for num in nums1:
+            res.append(d[num])
+        return res
