@@ -2718,5 +2718,31 @@ class Solution(object):
                 temp.append(j[1])
             res.append(temp)
         return res
+
+    def __init__(self):
+        self.data = [None]*1000001
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        self.data[key] = value
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        v = self.data[key]
+        return v if v != None else -1
+
+    def remove(self, key):
+        """
+        :type key: int
+        :rtype: None
+        """
+        self.data[key] = None
     
     
