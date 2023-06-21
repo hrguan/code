@@ -2799,3 +2799,18 @@ class Solution(object):
         if s1 == s2:
             return True
         return False
+
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        odd = set()
+        for letter in s:
+            if letter not in odd:
+                odd.add(letter)
+            else:
+                odd.remove(letter)
+        if len(odd) == 0:
+            return len(s)
+        else:
