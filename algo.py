@@ -2745,4 +2745,21 @@ class Solution(object):
         """
         self.data[key] = None
     
-    
+    def __init__(self):
+        self.dic = {}
+    def shouldPrintMessage(self, timestamp, message):
+        """
+        :type timestamp: int
+        :type message: str
+        :rtype: bool
+        """
+        if message not in self.dic:
+            self.dic[message] = timestamp+9
+            return True
+        else:
+            val = self.dic[message]
+            if timestamp > val:
+                self.dic[message] = timestamp+9
+                return True
+            else:
+                return False
