@@ -2874,3 +2874,19 @@ class Solution(object):
             else:
                 return False
         return True
+
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        d = {}
+        for letter in s:
+            if letter in d:
+                d[letter] += 1
+            else:
+                d[letter] = 1
+        for idx in range(len(s)):
+            if d[s[idx]] == 1:
+                return idx
+        return -1
