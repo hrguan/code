@@ -2938,3 +2938,23 @@ class Solution(object):
             return 2
 
         return 0
+    
+    def __init__(self):
+        self.count = collections.defaultdict(int)
+        self.idx = 0
+        self.heap = []  
+    def push(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """
+        self.count[val] += 1
+        self.idx += 1
+        heappush(self.heap, (-self.count[val], -self.idx, val))
+    def pop(self):
+        """
+        :rtype: int
+        """
+        _, _, val = heappop(self.heap)
+        self.count[val] -=1
+        return val
