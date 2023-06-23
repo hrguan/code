@@ -2851,4 +2851,26 @@ class Solution(object):
             if d[word] <= 0:
               return False
             d[word] -= 1
-        return Tr
+        return True
+
+    def canPermutePalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        odd = True
+        d = {}
+        for letter in s:
+            if letter not in d:
+                d[letter] = 1
+            else:
+                d[letter] += 1
+        
+        for k, v in d.items():
+            if v % 2 == 0:
+                continue
+            elif v % 2 != 0 and odd == True:
+                odd = False
+            else:
+                return False
+        return True
