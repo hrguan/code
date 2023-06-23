@@ -2906,3 +2906,35 @@ class Solution(object):
         for v in d.values():
             res.append(v)
         return res
+
+    def __init__(self, n):
+        """
+        :type n: int
+        """
+        self.n = n
+        self.row = [0] * n
+        self.col = [0] * n
+        self.dia = 0
+        self.anti = 0
+
+    def move(self, row, col, player):
+        """
+        :type row: int
+        :type col: int
+        :type player: int
+        :rtype: int
+        """
+        val = 1 if player == 1 else -1
+
+        self.row[row] += val
+        self.col[col] += val
+        if row == col:
+            self.dia += val
+        if row == self.n-1-col:
+            self.anti += val
+        if self.row[row] == self.n or self.col[col] == self.n or self.dia == self.n or self.anti == self.n:
+            return 1
+        if abs(self.row[row]) == self.n or abs(self.col[col]) == self.n or abs(self.dia) == self.n or abs(self.anti) == self.n:
+            return 2
+
+        return 0
