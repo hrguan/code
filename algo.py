@@ -2890,3 +2890,19 @@ class Solution(object):
             if d[s[idx]] == 1:
                 return idx
         return -1
+
+    def groupAnagrams(self, words):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        d = collections.defaultdict(list)
+        for word in words:
+            key = [0]*26
+            for letter in word:
+                key[ord(letter)-ord('a')] += 1
+            d[tuple(key)].append(word)
+        res = []
+        for v in d.values():
+            res.append(v)
+        return res
