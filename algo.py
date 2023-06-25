@@ -2958,3 +2958,22 @@ class Solution(object):
         _, _, val = heappop(self.heap)
         self.count[val] -=1
         return val
+    
+    def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
+        p_counter = Counter(p)
+        s_counter = dict()
+        res = []
+        for i in range(len(s)-len(p)+1):
+            if i == 0:
+                s_counter = Counter(s[:len(p)])
+            else:
+                s_counter[s[i-1]] -= 1
+                s_counter[s[i+len(p)-1]] += 1
+            if len(p_counter-s_counter) == 0:
+                res.append(i)
+        return res
