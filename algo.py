@@ -2977,3 +2977,28 @@ class Solution(object):
             if len(p_counter-s_counter) == 0:
                 res.append(i)
         return res
+
+    def mergeTwoLists(self, list1, list2):
+        """
+        :type list1: Optional[ListNode]
+        :type list2: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """
+        l1 = list1
+        l2 = list2
+        dummy = ListNode(0)
+        curr = dummy
+        while l1!=None and l2!=None:
+            if l1 and l1.val <= l2.val:
+                curr.next = l1
+                l1 = l1.next
+                curr = curr.next
+            else:
+                curr.next = l2
+                l2 = l2.next
+                curr = curr.next
+        if l1:
+            curr.next = l1
+        else:
+            curr.next = l2
+        return dummy.next
