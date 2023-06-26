@@ -3081,3 +3081,18 @@ class BrowserHistory(object):
             else:
                 stack.append(c)     
         return '/'+'/'.join(stack)
+    
+    def validateStackSequences(self, pushed, popped):
+        """
+        :type pushed: List[int]
+        :type popped: List[int]
+        :rtype: bool
+        """
+        stack = []
+        idx = 0
+        for num in pushed:
+            stack.append(num)
+            while stack and stack[-1] == popped[idx]:
+                stack.pop()
+                idx += 1
+        return True if len(stack) == 0 else False
