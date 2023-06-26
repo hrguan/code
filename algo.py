@@ -3002,3 +3002,42 @@ class Solution(object):
         else:
             curr.next = l2
         return dummy.next
+
+    class Node(object):
+    def __init__(self, val):
+        self.val = val
+        self.prev = None
+        self.next = None
+class BrowserHistory(object):
+    def __init__(self, homepage):
+        """
+        :type homepage: str
+        """      
+        self.root = Node(homepage)
+    def visit(self, url):
+        """
+        :type url: str
+        :rtype: None
+        """
+        new = Node(url)
+        self.root.next = new
+        new.prev = self.root
+        self.root = new
+    def back(self, steps):
+        """
+        :type steps: int
+        :rtype: str
+        """
+        while steps and self.root.prev:
+            steps -= 1
+            self.root = self.root.prev
+        return self.root.val
+    def forward(self, steps):
+        """
+        :type steps: int
+        :rtype: str
+        """
+        while steps and self.root.next:
+            steps -= 1
+            self.root = self.root.next
+        return self.root.val
