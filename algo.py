@@ -3041,3 +3041,27 @@ class BrowserHistory(object):
             steps -= 1
             self.root = self.root.next
         return self.root.val
+    
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+        curNum = 0
+        curString = ''
+        for c in s:
+            if c == "[":
+                stack.append(curString)
+                stack.append(curNum)
+                curNum = 0
+                curString = ''
+            elif c == "]":
+                time = stack.pop()
+                prev = stack.pop()
+                curString = prev + time*curString
+            elif c.isdigit():
+                curNum = curNum*10+int(c)
+            else:
+                curString += c
+        return curString
