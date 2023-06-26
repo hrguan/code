@@ -3096,3 +3096,21 @@ class BrowserHistory(object):
                 stack.pop()
                 idx += 1
         return True if len(stack) == 0 else False
+
+    def longestValidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        res = 0
+        stack = [-1]
+        for i in range(len(s)):
+            if s[i] == "(":
+                stack.append(i)
+            else:
+                stack.pop()
+                if not stack:
+                    stack.append(i)
+                else:
+                    res = max(res, i-stack[-1])
+        return res
