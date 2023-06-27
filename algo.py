@@ -3137,3 +3137,29 @@ class NestedIterator(object):
                 return True
             self.stack = first.getList()+self.stack[1:]
         return False
+    
+    def removeDuplicates(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: str
+        """
+        stack = []
+        stack.append((s[0], 1))
+        for i in range(1, len(s)):
+            if stack and stack[-1][0] == s[i]:
+                letter, num = stack.pop()
+                num += 1
+                if num == k:
+                    continue
+                else:
+                    stack.append((letter, num))
+            else:
+                stack.append((s[i], 1))
+        if stack:
+            temp = []
+            for l, v in stack:
+                for i in range(v):
+                    temp.append(l)
+            return "".join(temp)
+        return ""
