@@ -3114,3 +3114,26 @@ class BrowserHistory(object):
                 else:
                     res = max(res, i-stack[-1])
         return res
+
+class NestedIterator(object):
+    def __init__(self, nestedList):
+        """
+        Initialize your data structure here.
+        :type nestedList: List[NestedInteger]
+        """
+        self.stack = nestedList[::]
+    def next(self):
+        """
+        :rtype: int
+        """
+        return self.stack.pop(0).getInteger()
+    def hasNext(self):
+        """
+        :rtype: bool
+        """
+        while self.stack:
+            first = self.stack[0]
+            if first.isInteger():
+                return True
+            self.stack = first.getList()+self.stack[1:]
+        return False
