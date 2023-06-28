@@ -3221,3 +3221,23 @@ class NestedIterator(object):
                 num = 0
                 pre_op = c
         return sum(stack)
+
+    def uniqueOccurrences(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: bool
+        """
+        d = dict()
+        for ele in arr:
+            if ele not in d:
+                d[ele] = 1
+            else:
+                d[ele] += 1
+        
+        a = [0]*1001
+        for k, v in d.items():
+            if a[v] == 0:
+                a[v] = v
+            else:
+                return False
+        return True
