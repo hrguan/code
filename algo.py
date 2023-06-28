@@ -3260,3 +3260,17 @@ class NestedIterator(object):
                 continue
             d[key] = 1
         return res
+    
+    def minimumRounds(self, tasks: List[int]) -> int:
+        d = dict()
+        for t in tasks:
+            if t not in d:
+                d[t] = 1
+            else:
+                d[t] += 1
+        res = 0
+        for k, v in d.items():
+            if v == 1:
+                return -1
+            res += math.ceil(v/3)
+        return res
