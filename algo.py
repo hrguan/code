@@ -3241,3 +3241,22 @@ class NestedIterator(object):
             else:
                 return False
         return True
+
+    def subarraysDivByK(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        pre_sum = 0
+        d = {0:1}
+        res = 0
+        for num in nums:
+            pre_sum += num
+            key = pre_sum % k
+            if key in d:
+                res += d[key]
+                d[key] += 1
+                continue
+            d[key] = 1
+        return res
