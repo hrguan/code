@@ -3341,3 +3341,16 @@ class LRUCache(object):
             self.delete_from_list(node)
             self.move_to_head(node)
             node.val = value
+    
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        d = dict()
+        for num in nums:
+            if num not in d:
+                d[num] = 1
+            else:
+                return True
+        return False
