@@ -3272,5 +3272,72 @@ class NestedIterator(object):
         for k, v in d.items():
             if v == 1:
                 return -1
-            res += math.ceil(v/3)
+            #res += math.ceil(v/3)
+            #res += (v+2)//3
+            while v % 3 != 0:
+                res += 1
+                v -= 2
+            res += (v//3)
         return res
+
+    class DLNode(object):
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.next = None
+        self.prev = None  
+class LRUCache(object):
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.capacity = capacity
+        self.d = dict()
+        self.head = DLNode(0, 0)
+        self.tail = DLNode(0, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+    def move_to_head(self, node):
+        n = self.head.next
+        self.head.next = node
+        node.prev = self.head
+        node.next = n
+        n.prev = node
+    def delete_from_list(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+    def remove_tail(self):
+        if len(self.d) == 0: 
+            return
+        node = self.tail.prev
+        self.delete_from_list(node)
+        del self.d[node.key]
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.d:
+            return -1
+        node = self.d[key]
+        self.delete_from_list(node)
+        self.move_to_head(node)
+        return node.val
+        
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        if key not in self.d:
+            if len(self.d) >= self.capacity:
+                self.remove_tail()
+            new = DLNode(key, value)
+            self.d[key] = new 
+            self.move_to_head(new)
+        else:
+            node = self.d[key]
+            self.delete_from_list(node)
+            self.move_to_head(node)
+            node.val = value
