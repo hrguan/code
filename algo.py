@@ -3354,3 +3354,33 @@ class LRUCache(object):
             else:
                 return True
         return False
+    
+class SnapshotArray(object):
+
+    def __init__(self, length):
+        """
+        :type length: int
+        """
+        self.arr = [ [[-1, 0]] for i in range(length)]
+        self.id = 0
+    def set(self, index, val):
+        """
+        :type index: int
+        :type val: int
+        :rtype: None
+        """
+        self.arr[index].append([self.id, val])
+    def snap(self):
+        """
+        :rtype: int
+        """
+        self.id += 1
+        return self.id - 1
+    def get(self, index, snap_id):
+        """
+        :type index: int
+        :type snap_id: int
+        :rtype: int
+        """
+        i = bisect.bisect_right(self.arr[index], [snap_id, float("inf")]) -1
+        return self.arr[index][i][1]
