@@ -3384,3 +3384,38 @@ class SnapshotArray(object):
         """
         i = bisect.bisect_right(self.arr[index], [snap_id, float("inf")]) -1
         return self.arr[index][i][1]
+
+class RandomizedSet(object):
+    def __init__(self):
+        self.arr = []
+        self.map = {}
+    def insert(self, val):
+        """
+        :type val: int
+        :rtype: bool
+        """
+        if val not in self.map:
+            self.map[val] = len(self.arr)
+            self.arr.append(val)
+            return True
+        return False
+    def remove(self, val):
+        """
+        :type val: int
+        :rtype: bool
+        """
+        if val not in self.map:
+            return False
+        idx = self.map[val]
+        arr_last = self.arr[-1]
+        arr_last_idx = len(self.arr)-1
+        self.arr[idx] = arr_last
+        self.map[arr_last] = idx
+        self.arr.pop()
+        del self.map[val]
+        return True 
+    def getRandom(self):
+        """
+        :rtype: int
+        """
+        return random.choice(self.arr)
