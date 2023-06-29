@@ -3419,3 +3419,40 @@ class RandomizedSet(object):
         :rtype: int
         """
         return random.choice(self.arr)
+    
+class MinStack(object):
+    def __init__(self):   
+        self.stack = []
+        self.min = None
+    def push(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """
+        if self.min == None:
+            self.min = val 
+        if val < self.min:
+            self.min = val
+        self.stack.append([val, self.min])
+    def pop(self):
+        """
+        :rtype: None
+        """   
+        if self.stack:
+            self.stack.pop()
+            if not self.stack:
+                self.min = None
+            else:
+                self.min = self.stack[-1][1]
+    def top(self):
+        """
+        :rtype: int
+        """    
+        if self.stack:
+            return self.stack[-1][0]
+    def getMin(self):
+        """
+        :rtype: int
+        """
+        if self.stack:
+            return self.stack[-1][1]
