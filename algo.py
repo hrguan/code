@@ -3444,7 +3444,7 @@ class MinStack(object):
                 self.min = None
             else:
                 self.min = self.stack[-1][1]
-    def top(self):
+    def top(sself):
         """
         :rtype: int
         """    
@@ -3456,3 +3456,35 @@ class MinStack(object):
         """
         if self.stack:
             return self.stack[-1][1]
+        
+class TimeMap(object):
+    def __init__(self):
+        self.map = collections.defaultdict(list)
+    def set(self, key, value, timestamp):
+        """
+        :type key: str
+        :type value: str
+        :type timestamp: int
+        :rtype: None
+        """    
+        self.map[key].append([timestamp, value])
+    def get(self, key, timestamp):
+        """
+        :type key: str
+        :type timestamp: int
+        :rtype: str
+        """
+        val = self.map[key]
+        if not val:
+            return ""
+        left = 0
+        right = len(val)-1
+        while left < right:
+            mid = (left+right+1)/2
+            if val[mid][0] == timestamp:
+                return val[mid][1]
+            elif val[mid][0] < timestamp:
+                left = mid 
+            else:
+                right = mid - 1
+        return val[left][1] if val[left][0] <= timestamp else ""
