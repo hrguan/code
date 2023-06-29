@@ -3488,3 +3488,26 @@ class TimeMap(object):
             else:
                 right = mid - 1
         return val[left][1] if val[left][0] <= timestamp else ""
+    
+class OrderedStream(object):
+
+    def __init__(self, n):
+        """
+        :type n: int
+        """
+        self.pointer = 0
+        self.arr = [None] * n
+    def insert(self, idKey, value):
+        """
+        :type idKey: int
+        :type value: str
+        :rtype: List[str]
+        """
+        idKey -= 1
+        self.arr[idKey] = value
+        if self.pointer < idKey:
+            return []
+        else:
+            while self.pointer < len(self.arr) and self.arr[self.pointer] != None:
+                self.pointer += 1
+            return self.arr[idKey:self.pointer]
