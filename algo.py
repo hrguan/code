@@ -3571,3 +3571,16 @@ class OrderedStream(object):
                 res += pow(2, r-l, m)
                 l += 1
         return res % m
+
+    def intersection(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        n1 = set(nums1)
+        res = set()
+        for n in nums2:
+            if n in n1:
+                res.add(n)
+        return list(res)
