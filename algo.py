@@ -3552,3 +3552,22 @@ class OrderedStream(object):
             else:
                 right = m
         return left
+    
+    def numSubseq(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.sort()
+        res = 0
+        m = 10**9 + 7
+        l = 0
+        r = len(nums) - 1
+        while l <= r:
+            if nums[l] + nums[r] > target:
+                r -= 1
+            else:
+                res += pow(2, r-l, m)
+                l += 1
+        return res % m
