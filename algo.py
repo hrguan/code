@@ -3529,3 +3529,26 @@ class OrderedStream(object):
             else:
                 r = m - 1
         return -1
+    
+    def shipWithinDays(self, weights, days):
+        """
+        :type weights: List[int]
+        :type days: int
+        :rtype: int
+        """
+        left = max(weights)
+        right = sum(weights)
+        while left < right:
+            m = (left+right)/2
+            need = 1
+            curr = 0
+            for w in weights:
+                if curr+w > m:
+                    need += 1
+                    curr = 0
+                curr += w
+            if need > days:
+                left = m + 1
+            else:
+                right = m
+        return left
