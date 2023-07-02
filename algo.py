@@ -3609,3 +3609,30 @@ class OrderedStream(object):
             else:
                 l = m+1
         return l
+
+    def minimizeArrayValue(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left = 0
+        right = max(nums)
+        while left < right:
+            m = (left+right) // 2
+            print(m, left, right)
+            if self.check(nums, m):
+                right = m
+            else:
+                left = m + 1     
+        return left
+    def check(self, nums, m):
+        have = 0
+        for n in nums:
+            if n <= m:
+                have += m-n
+            else:
+                if have < n - m:
+                    return False
+                else:
+                    have -= n-m
+        return True
