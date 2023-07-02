@@ -3592,3 +3592,20 @@ class OrderedStream(object):
         :rtype: int
         """
         return bisect.bisect_left(nums, target)
+
+    def minimumTime(self, time, totalTrips):
+        """
+        :type time: List[int]
+        :type totalTrips: int
+        :rtype: int
+        """
+        l = 1
+        r = min(time) * totalTrips
+
+        while l < r:
+            m = (l+r)//2
+            if sum(m//t for t in time) >= totalTrips:
+                r = m
+            else:
+                l = m+1
+        return l
