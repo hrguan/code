@@ -3636,3 +3636,27 @@ class OrderedStream(object):
                 else:
                     have -= n-m
         return True
+
+    def isAlienSorted(self, words, order):
+        """
+        :type words: List[str]
+        :type order: str
+        :rtype: bool
+        """
+        d = dict()
+        for idx, letter in enumerate(order):
+            d[letter] = idx
+        
+        for i in range(1, len(words)):
+            prev = words[i-1]
+            curr = words[i]
+            flag = 0
+            for j in range(min(len(prev), len(curr))):
+                if d[prev[j]] < d[curr[j]]:
+                    flag = 1
+                    break
+                elif d[prev[j]] > d[curr[j]]:
+                    return False
+            if not flag and len(prev) > len(curr):
+                return False
+        return True
