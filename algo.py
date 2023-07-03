@@ -3741,3 +3741,33 @@ class OrderedStream(object):
             else:
                 break
         return res
+
+    def minimumSemesters(self, n, relations):
+        """
+        :type n: int
+        :type relations: List[List[int]]
+        :rtype: int
+        """
+        course = [0] * (n+1)
+        prev_next = collections.defaultdict(list)
+        for pre, nex in relations:
+            prev_next[pre].append(nex)
+            course[nex] += 1
+        
+        q = deque()
+        for i in range(1, n+1):
+            if course[i] == 0:
+                q.append(i)
+        if not q:
+            return -1
+        res = 0
+        while q:
+            res += 1
+            for i in range(len(q)):
+                curr = q.popleft()
+                courses = prev_next[curr]
+                for i in range(len(courses)):
+                    course[courses[i]] -= 1
+                    if course[courses[i]] == 0:
+                        q.append(courses[i])
+        return res if sum(course) == 0 else -1
