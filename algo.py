@@ -3660,3 +3660,29 @@ class OrderedStream(object):
             if not flag and len(prev) > len(curr):
                 return False
         return True
+
+    def findAllRecipes(self, recipes, ingredients, supplies):
+        """
+        :type recipes: List[str]
+        :type ingredients: List[List[str]]
+        :type supplies: List[str]
+        :rtype: List[str]
+        """
+        q = deque()
+        for supply in supplies:
+            q.append(supply)
+        ingred_reci = collections.defaultdict(list)
+        reci_need = collections.defaultdict(int)
+        for i in range(len(ingredients)):
+            for j in range(len(ingredients[i])):
+                ingred_reci[ingredients[i][j]].append(recipes[i])
+                reci_need[recipes[i]] += 1
+        res = []
+        while q:
+            have = q.popleft()
+            for reci in ingred_reci[have]:
+                reci_need[reci] -= 1
+                if reci_need[reci] == 0:
+                    res.append(reci)
+                    q.append(reci)
+        return res
