@@ -3725,3 +3725,19 @@ class OrderedStream(object):
         self.bfs(grid, i-1, j)
         self.bfs(grid, i, j-1)
         self.bfs(grid, i, j+1)
+
+    def maxIceCream(self, costs, coins):
+        """
+        :type costs: List[int]
+        :type coins: int
+        :rtype: int
+        """
+        costs.sort()
+        res = 0
+        for c in costs:
+            if coins-c >= 0:
+                res += 1
+                coins -= c
+            else:
+                break
+        return res
