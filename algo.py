@@ -3699,4 +3699,29 @@ class OrderedStream(object):
             arr = arr[0:idx+1][::-1]+arr[idx+1:]
             arr = arr[0:x][::-1]+arr[x:]
             res.append(x)
+            #res.extend([idx + 1, x])
         return res
+
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        if not grid:
+            return 0
+        res = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if grid[i][j] == "1":
+                    res += 1
+                    self.bfs(grid, i, j)
+        return res
+
+    def bfs(self, grid, i, j):
+        if i > len(grid)-1 or i < 0 or j < 0 or j > len(grid[0])-1 or grid[i][j] != "1":
+            return 
+        grid[i][j] = "0"
+        self.bfs(grid, i+1, j)
+        self.bfs(grid, i-1, j)
+        self.bfs(grid, i, j-1)
+        self.bfs(grid, i, j+1)
