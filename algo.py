@@ -3686,3 +3686,17 @@ class OrderedStream(object):
                     res.append(reci)
                     q.append(reci)
         return res
+
+    def pancakeSort(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: List[int]
+        """
+        res = []
+        for x in range(len(arr), 0, -1):
+            idx = arr.index(x)
+            res.append(idx+1)
+            arr = arr[0:idx+1][::-1]+arr[idx+1:]
+            arr = arr[0:x][::-1]+arr[x:]
+            res.append(x)
+        return res
