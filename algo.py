@@ -2422,6 +2422,25 @@ class Solution(object):
         res = []
         backtrack(nums, [], res)
         return res
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        def backtrack(nums, temp, res):
+            if not nums:
+                res.append(temp[:])
+            for i in range(len(nums)):
+                if i > 0 and nums[i] == nums[i-1]:
+                    continue
+                newNums = nums[:i]+nums[i+1:]
+                temp.append(nums[i])
+                backtrack(newNums, temp, res)
+                temp.pop()
+        nums.sort()
+        res = []
+        backtrack(nums, [], res)
+        return res
     
     def combine(self, n, k):
         """
