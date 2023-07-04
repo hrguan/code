@@ -2499,7 +2499,25 @@ class Solution(object):
         candidates.sort()
         backtrack(0, [], target)
         return res
- 
+    def combinationSum3(self, k, n):
+        """
+        :type k: int
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        def backtrack(nums, k, n, temp, res):
+            if k < 0 or n < 0:
+                return 
+            if k == 0 and n == 0:
+                res.append(temp[:])
+            for i in range(len(nums)):
+                newNums = nums[i+1:]
+                backtrack(newNums, k-1, n-nums[i], temp+[nums[i]], res)
+        res = []
+        nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        backtrack(nums, k, n, [], res)
+        return res
+    
     def maxDepth(self, root):
         """
         :type root: TreeNode
