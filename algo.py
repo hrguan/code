@@ -3825,3 +3825,21 @@ class OrderedStream(object):
                     if course[courses[i]] == 0:
                         q.append(courses[i])
         return res if sum(course) == 0 else -1
+    
+    def restoreIpAddresses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        def ok(seg):
+            if len(seg) > 3 or len(seg) == 0 or (len(seg) > 1 and seg[0] == "0") or int(seg) > 255:
+                return False
+            return True
+        res = []
+        for i in range(1, 4):
+            for j in range(i+1, i+4):
+                for k in range(j+1, j+4):
+                    seg1, seg2, seg3, seg4 = s[:i], s[i:j], s[j:k], s[k:]
+                    if ok(seg1) and ok(seg2) and ok(seg3) and ok(seg4):
+                        res.append(seg1 + "." + seg2 + "." + seg3 + "." + seg4)
+        return res
