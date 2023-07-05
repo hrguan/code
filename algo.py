@@ -3843,3 +3843,26 @@ class OrderedStream(object):
                     if ok(seg1) and ok(seg2) and ok(seg3) and ok(seg4):
                         res.append(seg1 + "." + seg2 + "." + seg3 + "." + seg4)
         return res
+
+     def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        visit = set()
+        def dfs(i, j, idx):
+            if idx == len(word):
+                return True
+            if i < 0 or j < 0 or i >= len(board) or j >= len(board[0]) or board[i][j] != word[idx] or (i, j) in visit:
+                return False
+            visit.add((i, j))
+            res = dfs(i+1, j, idx+1) or dfs(i-1, j, idx+1) or dfs(i, j+1, idx+1) or dfs(i, j-1, idx+1)
+            visit.remove((i, j))
+            return res
+        
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if dfs(i, j, 0):
+                    return True
+        return False
