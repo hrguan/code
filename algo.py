@@ -2518,6 +2518,23 @@ class Solution(object):
         backtrack(nums, k, n, [], res)
         return res
     
+    def partition(self, s):
+        """
+        :type s: str
+        :rtype: List[List[str]]
+        """
+        def backtrack(s, temp, res):
+            if not s:
+                return res.append(temp[:])
+            for i in range(1, len(s)+1):
+                if s[:i] == s[i-1::-1]:
+                    temp.append(s[:i])
+                    backtrack(s[i:], temp, res)
+                    temp.pop()
+        res = []
+        backtrack(s, [], res)
+        return res
+    
     def maxDepth(self, root):
         """
         :type root: TreeNode
