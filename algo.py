@@ -3866,3 +3866,17 @@ class OrderedStream(object):
                 if dfs(i, j, 0):
                     return True
         return False
+
+    def numTilePossibilities(self, tiles):
+        """
+        :type tiles: str
+        :rtype: int
+        """
+        res = set()
+        def dfs(temp, tiles):
+            if temp:
+                res.add(temp)
+            for i in range(len(tiles)):
+                dfs(temp+tiles[i], tiles[:i]+tiles[i+1:])
+        dfs("", tiles)
+        return len(res)
