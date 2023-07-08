@@ -3896,3 +3896,23 @@ class OrderedStream(object):
             res.append(str(nums[idx]))
             nums.remove(nums[idx])
         return "".join(res)
+
+    def numSquarefulPerms(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        def dfs(temp,num):
+            if len(num)==0:
+                self.count+=1
+                return 
+            for i in xrange(len(num)):
+                if (i>0 and num[i]==num[i-1]) or (len(temp) > 0 and math.sqrt(num[i] + temp[-1]) % 1 != 0):
+                    continue
+                dfs(temp+[num[i]],num[:i]+num[i+1:])
+        self.count = 0
+        nums.sort()
+        dfs([],nums)
+        return self.count
+
+    
