@@ -3936,4 +3936,44 @@ class OrderedStream(object):
                 temp.pop()
         backtrack(0, [])
         return res
+
+    def solveSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """  
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        boxes = defaultdict(set)
+        dots = deque()
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == ".":
+                    dots.append((i, j))
+                else:
+                    rows[i].add(board[i][j])
+                    cols[j].add(board[i][j])
+                    boxes[(i//3, j//3)].add(board[i][j])
+        def dfs():
+            if not dots:
+                return True
+            row, col = dots[0]
+            box = (row//3, col//3)
+            for n in {"1", "2", "3", "4", "5", "6", "7", "8", "9"}:
+                if n not in rows[row] and n not in cols[col] and n not in boxes[box]:
+                    board[row][col] = n
+                    rows[row].add(n)
+                    cols[col].add(n)
+                    boxes[box].add(n)
+                    dots.popleft()
+                    if dfs():
+                        return True
+                    else:
+                        board[row][col] = "."
+                        rows[row].discard(n)
+                        cols[col].discard(n)
+                        boxes[box].discard(n)
+                        dots.appendleft((row, col))
+            return False
+        dfs()
     
