@@ -3915,4 +3915,25 @@ class OrderedStream(object):
         dfs([],nums)
         return self.count
 
+    def findSubsequences(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        def backtrack(start, temp):
+            if len(temp) >= 2:
+                res.append(temp[:])
+            used = set()
+            for i in range(start, len(nums)):
+                if temp and nums[i] < temp[-1]:  
+                    continue 
+                if nums[i] in used:
+                    continue
+                used.add(nums[i]) 
+                temp.append(nums[i])
+                backtrack(i+1, temp)
+                temp.pop()
+        backtrack(0, [])
+        return res
     
