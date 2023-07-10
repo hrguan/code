@@ -3976,4 +3976,31 @@ class OrderedStream(object):
                         dots.appendleft((row, col))
             return False
         dfs()
+
+    def solveNQueens(self, n):
+        """
+        :type n: int
+        :rtype: List[List[str]]
+        """
+        res = []
+        cols = set()
+        dia = set()
+        anti_dia = set()
+        def backtrack(r, temp):
+            if r == n:
+                return res.append([ "."*i + "Q" + "."*(n-i-1) for i in temp])
+            for c in range(n):
+                if c not in cols and r-c not in dia and r+c not in anti_dia:
+                    cols.add(c)
+                    dia.add(r-c)
+                    anti_dia.add(r+c)
+                    temp.append(c)
+                    backtrack(r+1, temp)
+                    cols.remove(c)
+                    dia.remove(r-c)
+                    anti_dia.remove(r+c)
+                    temp.pop()
+                    
+        backtrack(0, [])
+        return res
     
