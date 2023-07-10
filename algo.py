@@ -4003,4 +4003,32 @@ class OrderedStream(object):
                     
         backtrack(0, [])
         return res
+
+    def totalNQueens(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        self.res = 0
+        cols = set()
+        dia = set()
+        anti_dia = set()
+        def backtrack(r, temp):
+            if r == n:
+                self.res += 1
+                return
+            for c in range(n):
+                if c not in cols and r-c not in dia and r+c not in anti_dia:
+                    cols.add(c)
+                    dia.add(r-c)
+                    anti_dia.add(r+c)
+                    temp.append(c)
+                    backtrack(r+1, temp)
+                    cols.remove(c)
+                    dia.remove(r-c)
+                    anti_dia.remove(r+c)
+                    temp.pop()
+                    
+        backtrack(0, [])
+        return self.res
     
