@@ -4032,3 +4032,17 @@ class OrderedStream(object):
         backtrack(0, [])
         return self.res
     
+    def hasAlternatingBits(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        num = bin(n)[2:]
+        prev = num[0]
+        for i in range(1, len(num)):
+            if prev == "0" and num[i] == "0":
+                return False
+            elif prev == "1" and num[i] == "1":
+                return False
+            prev = num[i]
+        return True
