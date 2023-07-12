@@ -4037,6 +4037,10 @@ class OrderedStream(object):
         :type n: int
         :rtype: bool
         """
+        # num = bin(n)[2:]
+        # if "00" in num or "11" in num :
+        #     return False
+        # return True
         num = bin(n)[2:]
         prev = num[0]
         for i in range(1, len(num)):
@@ -4046,3 +4050,10 @@ class OrderedStream(object):
                 return False
             prev = num[i]
         return True
+
+    def reverseBits(self, n):
+        res = 0
+        for i in range(32):
+            res = (res << 1) + (n & 1)
+            n >>= 1
+        return res
