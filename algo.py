@@ -4079,3 +4079,24 @@ class OrderedStream(object):
             ones = (ones ^ num) & ~twos
             twos = (twos ^ num) & ~ones
         return ones
+
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        res = 0
+        for num in nums:
+            res ^= num
+        right = 1
+        while (res & 1) == 0:
+            res >>= 1
+            right <<= 1
+        one = 0
+        two = 0
+        for num in nums:
+            if (right & num) != 0:
+                one ^= num
+            else:
+                two ^= num
+        return [one, two]
