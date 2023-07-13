@@ -4140,3 +4140,21 @@ class OrderedStream(object):
         if carry:
             res += str(carry)
         return res[::-1]
+
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        res = 0
+        s = set(nums)
+        for num in nums:
+            if num - 1 in s:
+                continue
+            curr = 1
+            while num + curr in s:
+                curr += 1
+            res = max(res, curr)
+        return res
+
+    
