@@ -4158,3 +4158,79 @@ class OrderedStream(object):
         return res
 
     
+class Node(object):
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.prev = None
+        self.next = None
+        self.freq = 1
+class DDL(object):
+    def __init__(self):
+        self.head = Node(0, 0)
+        self.tail = Node(0, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.size = 0
+    def insert_to_head(self, node):
+        n = self.head.next
+        self.head.next = node
+        node.prev = self.head
+        n.prev = node
+        node.next = n
+        self.size += 1
+    def remove_node(self, node):
+        n = node.next
+        p = node.prev
+        p.next = n
+        n.prev = p
+        self.size -= 1
+    def pop_tail(self):
+        node = self.tail.prev
+        self.remove_node(node)
+        return node
+class LFUCache(object):
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.cache = {}
+        self.freqTable = collections.defaultdict(DDL)
+        self.capacity = capacity
+        self.minFreq = 0
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.cache:
+            return -1
+        return self.update(self.cache[key], self.cache[key].val)
+       
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        if key in self.cache:
+            self.update(self.cache[key], value)
+        else:
+            if len(self.cache) == self.capacity:
+                tail = self.freqTable[self.minFreq].pop_tail()
+                del self.cache[tail.key]
+            new = Node(key, value)
+            self.cache[key] = new
+            self.minFreq = 1
+            self.freqTable[1].insert_to_head(new)
+    
+    def update(self, node, value):
+        node.val = value
+        prevFreq = node.freq
+        node.freq += 1
+        self.freqTable[prevFreq].remove_node(node)
+        self.freqTable[node.freq].insert_to_head(node)
+        if prevFreq == self.minFreq and self.freqTable[prevFreq].size == 0:
+            self.minFreq += 1
+        return node.val
