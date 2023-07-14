@@ -4338,3 +4338,79 @@ class Trie(object):
                 return False
             t = t[w]
         return True
+
+class Node(object):
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+class Trie(object):
+    def __init__(self):
+        self.trie = Node()
+    def insert(self, word):
+        """
+        :type word: str
+        :rtype: None
+        """
+        curr = self.trie
+        for w in word:
+            if w not in curr.children:
+                curr.children[w] = Node()
+            curr = curr.children[w]
+        curr.isWord = True
+    def search(self, word):
+        """
+        :type word: str
+        :rtype: bool
+        """
+        curr = self.trie
+        for w in word:
+            if w not in curr.children:
+                return False
+            curr = curr.children[w]
+        return curr.isWord
+    def startsWith(self, prefix):
+        """
+        :type prefix: str
+        :rtype: bool
+        """
+        curr = self.trie
+        for w in prefix:
+            if w not in curr.children:
+                return False
+            curr = curr.children[w]
+        return True
+
+class Node(object):
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+class WordDictionary(object):
+    def __init__(self):
+        self.trie = Node()
+    def addWord(self, word):
+        """
+        :type word: str
+        :rtype: None
+        """
+        curr = self.trie
+        for w in word:
+            if w not in curr.children:
+                curr.children[w] = Node()
+            curr = curr.children[w]
+        curr.isWord = True             
+    def search(self, word):
+        """
+        :type word: str
+        :rtype: bool
+        """
+        def dfs(t, index):
+            if index == len(word):
+                return t.isWord
+            if word[index] == ".":
+                for child in t.children.values():
+                    if dfs(child, index+1):
+                        return True
+            if word[index] in t.children:
+                return dfs(t.children[word[index]], index+1)
+            return False
+        return dfs(self.trie, 0)
