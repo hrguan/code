@@ -4301,3 +4301,40 @@ class LFUCache(object):
                 q.append((r, c+1))
 
         return image
+    
+class Trie(object):
+    def __init__(self):
+        self.trie = {}
+    def insert(self, word):
+        """
+        :type word: str
+        :rtype: None
+        """
+        t = self.trie
+        for w in word:
+            if w not in t:
+                t[w] = {}
+            t = t[w]
+        t["-"] = True
+    def search(self, word):
+        """
+        :type word: str
+        :rtype: bool
+        """
+        t = self.trie
+        for w in word:
+            if w not in t:
+                return False
+            t = t[w]
+        return "-" in t
+    def startsWith(self, prefix):
+        """
+        :type prefix: str
+        :rtype: bool
+        """
+        t = self.trie
+        for w in prefix:
+            if w not in t:
+                return False
+            t = t[w]
+        return True
