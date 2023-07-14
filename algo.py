@@ -4234,3 +4234,22 @@ class LFUCache(object):
         if prevFreq == self.minFreq and self.freqTable[prevFreq].size == 0:
             self.minFreq += 1
         return node.val
+
+    def minDiffInBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """    
+        stack = []
+        node = root
+        res = float("inf")
+        prev = float("-inf")
+        while stack or node:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            res = min(res, node.val - prev)
+            prev = node.val
+            node = node.right
+        return res
