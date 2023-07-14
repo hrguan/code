@@ -4268,3 +4268,36 @@ class LFUCache(object):
         if not left or not right:
             return False
         return left.val == right.val and self.isMirror(left.left, right.right) and self.isMirror(left.right, right.left)
+
+    def floodFill(self, image, sr, sc, color):
+        """
+        :type image: List[List[int]]
+        :type sr: int
+        :type sc: int
+        :type color: int
+        :rtype: List[List[int]]
+        """
+        q = deque()
+        seen = set()
+        seen.add((sr, sc))
+        q.append((sr, sc))
+        init = image[sr][sc]
+        res = []
+        while q:
+            r, c = q.popleft()
+            if image[r][c] == init:
+                image[r][c] = color
+            if r-1 >= 0 and image[r-1][c] == init and (r-1, c) not in seen:
+                seen.add((r-1, c))
+                q.append((r-1, c))
+            if r+1 <= len(image)-1 and image[r+1][c] == init and (r+1, c) not in seen:
+                seen.add((r+1, c))
+                q.append((r+1, c))
+            if c-1>=0 and image[r][c-1] == init and (r, c-1) not in seen:
+                seen.add((r, c-1))
+                q.append((r, c-1))
+            if c+1 <= len(image[0])-1 and image[r][c+1] == init and (r, c+1) not in seen:
+                seen.add((r, c+1))
+                q.append((r, c+1))
+
+        return image
