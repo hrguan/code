@@ -4414,3 +4414,31 @@ class WordDictionary(object):
                 return dfs(t.children[word[index]], index+1)
             return False
         return dfs(self.trie, 0)
+
+class Node(object):
+    def __init__(self):
+        self.children = collections.defaultdict(Node)
+        self.suggestion = []
+    def add_suggestion(self, product):
+        if len(self.suggestion) < 3:
+            self.suggestion.append(product)
+class Solution(object):
+    def suggestedProducts(self, products, searchWord):
+        """
+        :type products: List[str]
+        :type searchWord: str
+        :rtype: List[List[str]]
+        """
+        products.sort()
+        root = Node()
+        for product in products:
+            node = root
+            for char in product:
+                node = node.children[char]
+                node.add_suggestion(product)
+        res = []
+        node = root
+        for char in searchWord:
+            node = node.children[char]
+            res.append(node.suggestion)
+        return res
