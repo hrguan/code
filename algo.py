@@ -4522,3 +4522,17 @@ class Solution(object):
             for j in range(len(board[0])):
                 self.dfs(i, j, trie, node.children[board[i][j]], board, board[i][j], res)
         return res
+
+    def isSameTree(self, p, q):
+        """
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: bool
+        """
+        def same(p, q):
+            if not p and not q:
+                return True
+            if not p or not q:
+                return False
+            return p.val == q.val and same(p.left, q.left) and same(p.right, q.right)        
+        return same(p, q)
