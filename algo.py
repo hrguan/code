@@ -4553,3 +4553,18 @@ class Solution(object):
             res.append(node.val)
             node = node.right
         return res
+
+    def sortedArrayToBST(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: TreeNode
+        """
+        def make(start, end):
+            if start >= end:
+                return None
+            return TreeNode(
+                val = nums[(start+end)//2],
+                left = make(start, (start+end)//2),
+                right = make((start+end)//2+1, end)
+            )
+        return make(0, len(nums))
