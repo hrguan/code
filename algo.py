@@ -4568,3 +4568,16 @@ class Solution(object):
                 right = make((start+end)//2+1, end)
             )
         return make(0, len(nums))
+
+    def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if not root:
+            return True
+        return abs(self.getHeight(root.left) - self.getHeight(root.right)) < 2 and self.isBalanced(root.left) and self.isBalanced(root.right)
+    def getHeight(self, node):
+        if not node:
+            return 0
+        return max(self.getHeight(node.left), self.getHeight(node.right))+1
