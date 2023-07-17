@@ -4536,3 +4536,20 @@ class Solution(object):
                 return False
             return p.val == q.val and same(p.left, q.left) and same(p.right, q.right)        
         return same(p, q)
+
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        stack = []
+        node = root
+        while node or stack:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            res.append(node.val)
+            node = node.right
+        return res
