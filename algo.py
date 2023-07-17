@@ -4581,3 +4581,18 @@ class Solution(object):
         if not node:
             return 0
         return max(self.getHeight(node.left), self.getHeight(node.right))+1
+
+    def minDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        if not root.left and not root.right:
+            return 1
+        if root.left and not root.right:
+            return 1 + self.minDepth(root.left)
+        if root.right and not root.left:
+            return 1 + self.minDepth(root.right)
+        return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
