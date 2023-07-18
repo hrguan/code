@@ -4708,4 +4708,18 @@ class Solution(object):
             return root.left.val + self.sumOfLeftLeaves(root.right)
         return self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right)
 
+    def maxDepth(self, root):
+        """
+        :type root: Node
+        :rtype: int
+        """
+        if not root:
+            return 0
+        if not root.children:
+            return 1
+        heights = []
+        for child in root.children:
+            heights.append(self.maxDepth(child))
+        return max(heights)+1
+
     
