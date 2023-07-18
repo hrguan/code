@@ -4752,6 +4752,8 @@ class Solution(object):
         return self.isSubtree(root.right, subRoot) or self.isSubtree(root.left, subRoot)
         
     def isSame(self, p, q):
+        if not p and not q:
+            return True
         if p and q:
             return p.val==q.val and self.isSame(p.right, q.right) and self.isSame(p.left, q.left)
-        return p is q
+        
