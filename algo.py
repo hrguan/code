@@ -4596,3 +4596,16 @@ class Solution(object):
         if root.right and not root.left:
             return 1 + self.minDepth(root.right)
         return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
+
+    def hasPathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: bool
+        """
+        if not root:
+            return False
+        if not root.left and not root.right and root.val == targetSum:
+            return True
+        targetSum -= root.val
+        return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)
