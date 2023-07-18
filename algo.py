@@ -4739,3 +4739,19 @@ class Solution(object):
         dfs(root)
         return self.ans
     
+    def isSubtree(self, root, subRoot):
+        """
+        :type root: TreeNode
+        :type subRoot: TreeNode
+        :rtype: bool
+        """
+        if not root:
+            return False
+        if self.isSame(root, subRoot):
+            return True
+        return self.isSubtree(root.right, subRoot) or self.isSubtree(root.left, subRoot)
+        
+    def isSame(self, p, q):
+        if p and q:
+            return p.val==q.val and self.isSame(p.right, q.right) and self.isSame(p.left, q.left)
+        return p is q
