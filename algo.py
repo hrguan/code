@@ -4642,3 +4642,19 @@ class Solution(object):
                 stack.append(node.right)
                 stack.append(node.left)
         return res
+
+    def postorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        stack = []
+        stack.append(root)
+        while stack:
+            node = stack.pop()
+            if node:
+                res.append(node.val)
+                stack.append(node.left)
+                stack.append(node.right)
+        return res[::-1]
