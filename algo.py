@@ -4253,6 +4253,25 @@ class LFUCache(object):
             prev = node.val
             node = node.right
         return res
+    
+    def getMinimumDifference(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        res = float("inf")
+        prev = float("-inf")
+        stack = []
+        node = root
+        while node or stack:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            res = min(res, abs(node.val-prev))
+            prev = node.val
+            node = node.right
+        return res
 
     def isSymmetric(self, root):
         """
@@ -4688,3 +4707,5 @@ class Solution(object):
         if root.left and not root.left.left and not root.left.right:
             return root.left.val + self.sumOfLeftLeaves(root.right)
         return self.sumOfLeftLeaves(root.left) + self.sumOfLeftLeaves(root.right)
+
+    
