@@ -4722,4 +4722,20 @@ class Solution(object):
             heights.append(self.maxDepth(child))
         return max(heights)+1
 
+
+    def findTilt(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.ans = 0
+        def dfs(root):
+            if not root:
+                return 0
+            l = dfs(root.left)
+            r = dfs(root.right)
+            self.ans += abs(l-r)
+            return root.val + l+ r
+        dfs(root)
+        return self.ans
     
