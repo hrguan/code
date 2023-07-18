@@ -4658,3 +4658,22 @@ class Solution(object):
                 stack.append(node.left)
                 stack.append(node.right)
         return res[::-1]
+    
+    def binaryTreePaths(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[str]
+        """
+        res = []
+        if not root:
+            return []
+        def dfs(node, tmp):
+            if node:
+                if not node.left and not node.right:    
+                    return res.append(tmp+str(node.val))
+                if node.left:
+                    dfs(node.left, tmp+str(node.val)+"->")
+                if node.right:
+                    dfs(node.right, tmp+str(node.val)+"->")
+        dfs(root, "")
+        return res
