@@ -4609,3 +4609,20 @@ class Solution(object):
             return True
         targetSum -= root.val
         return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)
+    
+    def pathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        def dfs(root, sum, tmp):
+            if root:
+                if not root.left and not root.right and root.val == sum:
+                    tmp.append(root.val)
+                    return res.append(tmp)
+                dfs(root.left, sum-root.val, tmp+[root.val])
+                dfs(root.right, sum-root.val, tmp+[root.val])
+        dfs(root, targetSum, [])
+        return res 
