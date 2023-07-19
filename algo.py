@@ -4803,3 +4803,21 @@ class Solution(object):
                     q.append(node.right)
             res.append(temp/l)
         return res
+
+    def findTarget(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: bool
+        """
+        d = set()
+        def find(node):
+            if not node:
+                return False
+            complement = k - node.val
+            if complement in d:
+                return True
+            d.add(node.val)
+            return find(node.left) or find(node.right)  
+        print(d)
+        return find(root)
