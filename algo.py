@@ -4757,3 +4757,18 @@ class Solution(object):
         if p and q:
             return p.val==q.val and self.isSame(p.right, q.right) and self.isSame(p.left, q.left)
         
+    
+    def preorder(self, root):
+        """
+        :type root: Node
+        :rtype: List[int]
+        """
+        res = []
+        def dfs(node):
+            if not node:
+                return
+            res.append(node.val)
+            for child in node.children:
+                dfs(child)
+        dfs(root)
+        return res
