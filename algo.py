@@ -4853,3 +4853,25 @@ class Solution(object):
         dfs(root1, leaf1)
         dfs(root2, leaf2)
         return leaf1 == leaf2
+
+    def increasingBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        stack = []
+        node = root
+        arr = []
+        while stack or node:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            arr.append(node.val)
+            node = node.right
+        
+        root = curr = TreeNode(arr[0])
+        for i in arr[1:]:
+            curr.right = TreeNode(i)
+            curr = curr.right
+        return root
