@@ -4868,10 +4868,47 @@ class Solution(object):
                 node = node.left
             node = stack.pop()
             arr.append(node.val)
-            node = node.right
+            node = nosde.right
         
         root = curr = TreeNode(arr[0])
         for i in arr[1:]:
             curr.right = TreeNode(i)
             curr = curr.right
         return root
+    
+        # stack = []
+        # node = root
+        # arr = []
+        # root = curr = TreeNode(-10)
+        # while stack or node:
+        #     while node:
+        #         stack.append(node)
+        #         node = node.left
+        #     node = stack.pop()
+        #     if curr.val == -10:
+        #         curr.val = node.val
+        #     else:
+        #         curr.right = TreeNode(node.val)
+        #         curr = curr.right
+        #     node = node.right
+        # return root
+
+
+    def rangeSumBST(self, root, low, high):
+        """
+        :type root: TreeNode
+        :type low: int
+        :type high: int
+        :rtype: int
+        """
+        self.res = 0
+        def dfs(node):
+            if not node:
+                return
+            if low <= node.val <= high:
+                self.res += node.val
+            dfs(node.left)
+            dfs(node.right)
+        dfs(root)
+        return self.res
+    
