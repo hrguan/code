@@ -4786,3 +4786,20 @@ class Solution(object):
             return root
         else:
             return root1 or root2
+
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        q = deque()
+        q.append(root)
+        res = []
+        while q:
+            l = len(q)
+            temp = 0
+            for i in range(len(q)):
+                node = q.popleft()
+                temp += node.val
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            res.append(temp/l)
+        return res
