@@ -4911,4 +4911,31 @@ class Solution(object):
             dfs(node.right)
         dfs(root)
         return self.res
+
+    def isCousins(self, root, x, y):
+        """
+        :type root: TreeNode
+        :type x: int
+        :type y: int
+        :rtype: bool
+        """
+        res = []
+        q = deque()
+        q.append((root, None, 0))
+        while q:
+            if len(res) == 2:
+                break
+            node, parent, depth = q.popleft()
+            if node.val == x or node.val == y:
+                res.append((parent, depth))
+            if node.left:
+                q.append((node.left, node, depth+1))
+            if node.right:
+                q.append((node.right, node, depth+1))
+        
+        xP, xd = res[0]
+        yP, yd = res[1]
+        return xP!=yP and xd == yd
+
+    
     
