@@ -4835,3 +4835,21 @@ class Solution(object):
                 return node
             return dfs(node.left) or dfs(node.right)
         return dfs(root)
+
+    def leafSimilar(self, root1, root2):
+        """
+        :type root1: TreeNode
+        :type root2: TreeNode
+        :rtype: bool
+        """
+        leaf1 = []
+        leaf2 = []
+        def dfs(node, lst):
+            if node:
+                dfs(node.left, lst)
+                if not node.left and not node.right:
+                    lst.append(node.val)
+                dfs(node.right, lst)
+        dfs(root1, leaf1)
+        dfs(root2, leaf2)
+        return leaf1 == leaf2
