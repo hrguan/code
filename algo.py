@@ -4821,3 +4821,17 @@ class Solution(object):
             return find(node.left) or find(node.right)  
         print(d)
         return find(root)
+
+    def searchBST(self, root, val):
+        """
+        :type root: TreeNode
+        :type val: int
+        :rtype: TreeNode
+        """
+        def dfs(node):
+            if not node:
+                return node
+            if node.val == val:
+                return node
+            return dfs(node.left) or dfs(node.right)
+        return dfs(root)
