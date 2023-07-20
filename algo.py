@@ -4970,3 +4970,28 @@ class Solution(object):
                     curr //= 10
         return res
     
+        def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        q = deque()
+        q.append((beginWord, 1))
+        wordList = set(wordList)
+        visit = set()
+        if endWord not in wordList:
+            return 0
+
+        while q:
+            word, count = q.popleft()
+            if word == endWord:
+                return count
+            for i in range(len(word)):
+                for j in 'abcdefghijklmnopqrstuvwxyz':
+                    new = word[:i] + j + word[i+1:]
+                    if new not in visit and new in wordList:
+                        q.append((new, count+1))
+                        visit.add(new)
+        return 0
