@@ -4995,3 +4995,10 @@ class Solution(object):
                         q.append((new, count+1))
                         visit.add(new)
         return 0
+
+    def divisorGame(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        return n % 2 == 0
