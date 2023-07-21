@@ -5026,3 +5026,16 @@ class Solution(object):
                 i += 1
             j += 1
         return i == len(s)
+
+    def minCostClimbingStairs(self, cost):
+        """
+        :type cost: List[int]
+        :rtype: int
+        """
+        if not cost:
+            return 0
+        dp = [0] * len(cost)
+        dp[0] = cost[0]
+        for i in range(1, len(cost)):
+            dp[i] = cost[i] + min(dp[i-1], dp[i-2])
+        return min(dp[-1], dp[-2])
