@@ -5068,4 +5068,40 @@ class Solution(object):
                 dp[i][j] = dp[i-1][j] + dp[i][j-1]
         return dp[-1][-1]
 
+    def uniquePathsWithObstacles(self, obstacleGrid):
+        """
+        :type obstacleGrid: List[List[int]]
+        :rtype: int
+        """
+        if obstacleGrid[-1][-1] == 1 or obstacleGrid[0][0] == 1:  
+            return 0
+        m = len(obstacleGrid[0])
+        n = len(obstacleGrid)
+        dp = [ [0]*m for i in range(n) ]
+        for i in range(1, m):
+            if obstacleGrid[0][i] != 1 and dp[0][i-1] != "o":
+                dp[0][i] = 1
+            else:
+                dp[0][i] = "o"
+        for i in range(1, n):
+            if obstacleGrid[i][0] != 1 and dp[i-1][0] != "o":
+                dp[i][0] = 1
+            else:
+                dp[i][0] = "o"
+        dp[0][0] = 1
+        for i in range(1, n):
+            for j in range(1, m):
+                if obstacleGrid[i][j] == 1:
+                    dp[i][j] = "o"
+                elif dp[i-1][j] == "o" and dp[i][j-1] == "o":
+                    dp[i][j] = "o"
+                elif dp[i-1][j] == "o" or dp[i][j-1] == "o":
+                    if dp[i-1][j] != "o":
+                        dp[i][j] = dp[i-1][j]
+                    else:
+                        dp[i][j] = dp[i][j-1]
+                else:
+                    dp[i][j] = dp[i][j-1] + dp[i-1][j]
+        return dp[-1][-1] if dp[-1][-1]!= "o" else 0
+
     
