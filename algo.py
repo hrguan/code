@@ -5039,3 +5039,17 @@ class Solution(object):
         for i in range(1, len(cost)):
             dp[i] = cost[i] + min(dp[i-1], dp[i-2])
         return min(dp[-1], dp[-2])
+
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        curr = nums[0]
+        res = nums[0]
+        for num in nums[1:]:
+            curr = max(num, curr+num)
+            res = max(res, curr)
+        return res
+
+    
