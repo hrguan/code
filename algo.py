@@ -5078,30 +5078,39 @@ class Solution(object):
         m = len(obstacleGrid[0])
         n = len(obstacleGrid)
         dp = [ [0]*m for i in range(n) ]
+        dp[0][0] = 1
         for i in range(1, m):
-            if obstacleGrid[0][i] != 1 and dp[0][i-1] != "o":
+            if obstacleGrid[0][i] != 1 and dp[0][i-1] != 0:
                 dp[0][i] = 1
             else:
-                dp[0][i] = "o"
+                dp[0][i] = 0
         for i in range(1, n):
-            if obstacleGrid[i][0] != 1 and dp[i-1][0] != "o":
+            if obstacleGrid[i][0] != 1 and dp[i-1][0] != 0:
                 dp[i][0] = 1
             else:
-                dp[i][0] = "o"
-        dp[0][0] = 1
+                dp[i][0] = 0
         for i in range(1, n):
             for j in range(1, m):
                 if obstacleGrid[i][j] == 1:
-                    dp[i][j] = "o"
-                elif dp[i-1][j] == "o" and dp[i][j-1] == "o":
-                    dp[i][j] = "o"
-                elif dp[i-1][j] == "o" or dp[i][j-1] == "o":
-                    if dp[i-1][j] != "o":
-                        dp[i][j] = dp[i-1][j]
-                    else:
-                        dp[i][j] = dp[i][j-1]
+                    dp[i][j] = 0
                 else:
                     dp[i][j] = dp[i][j-1] + dp[i-1][j]
-        return dp[-1][-1] if dp[-1][-1]!= "o" else 0
+        return dp[-1][-1]
 
-    
+    def minPathSum(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        m = len(grid[0])
+        n = len(grid)
+        dp = [ [0]*m for i in range(n) ]
+        dp[0][0] = grid[0][0]
+        for i in range(1, m):
+            dp[0][i] = grid[0][i]+ dp[0][i-1]
+        for j in range(1, n):
+            dp[j][0] = grid[j][0]+ dp[j-1][0]
+        for i in range(1, n):
+            for j in range(1, m):
+                dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1])
+        return dp[-1][-1]
