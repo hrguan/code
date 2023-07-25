@@ -5155,3 +5155,18 @@ class Solution(object):
             for j in range(i+1):
                 triangle[i][j] += min(triangle[i+1][j], triangle[i+1][j+1])
         return triangle[0][0]
+
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """
+        dp = [False] * (len(s)+1)
+        dp[0] = True
+        for i in range(len(s)):
+            for j in range(i, len(s)):
+                if dp[i]:
+                    if s[i:j+1] in wordDict:
+                        dp[j+1] = True
+        return dp[-1]
