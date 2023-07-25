@@ -5170,3 +5170,24 @@ class Solution(object):
                     if s[i:j+1] in wordDict:
                         dp[j+1] = True
         return dp[-1]
+
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: List[str]
+        """
+        wordDict = set(wordDict)
+        def helper(idx):
+            if idx == len(s):
+                return [""]
+            res = []
+            for j in range(idx+1, len(s)+1):
+                if s[idx:j] in wordDict:
+                    for tail in helper(j):
+                        if tail != "":
+                            res.append(s[idx:j] + " " + tail)
+                        else:
+                            res.append(s[idx:j])
+            return res
+        return helper(0)
