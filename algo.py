@@ -5191,3 +5191,18 @@ class Solution(object):
                             res.append(s[idx:j])
             return res
         return helper(0)
+
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        _max = nums[0]
+        _min = nums[0]
+        res = nums[0]
+        for num in nums[1:]:
+            _max *= num 
+            _min *= num 
+            _max, _min = max(_max, num, _min), min(_max, num, _min)
+            res = max(res, _max)
+        return res
