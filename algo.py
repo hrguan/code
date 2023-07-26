@@ -5252,3 +5252,17 @@ class Solution(object):
                 if nums[i] > nums[j]:
                     dp[i] = max(dp[i], dp[j]+1)
         return max(dp)
+
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        cool_down, sell, hold = 0, 0, -float('inf')
+        
+        for stock_price_of_Day_i in prices:
+            prev_cool_down, prev_sell, prev_hold = cool_down, sell, hold
+            hold = max(prev_hold, prev_cool_down - stock_price_of_Day_i)
+            sell = prev_hold + stock_price_of_Day_i
+            cool_down = max(prev_cool_down, prev_sell)
+        return max(sell, cool_down)
