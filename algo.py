@@ -5239,4 +5239,16 @@ class Solution(object):
             b3 = nums2[i] + nums2[i-2]
             nums2[i] = max(b2, b3)
         return max( max(nums1), max(nums2) )
+
     
+    def lengthOfLIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        dp = [1] * len(nums)
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], dp[j]+1)
+        return max(dp)
