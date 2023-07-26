@@ -5206,3 +5206,15 @@ class Solution(object):
             _max, _min = max(_max, num, _min), min(_max, num, _min)
             res = max(res, _max)
         return res
+
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums = [0, 0, 0] + nums
+        for i in range(3, len(nums)):
+            b2 = nums[i] + nums[i-3]
+            b3 = nums[i] + nums[i-2]
+            nums[i] = max(b2, b3)
+        return max(nums)
