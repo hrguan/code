@@ -5218,3 +5218,25 @@ class Solution(object):
             b3 = nums[i] + nums[i-2]
             nums[i] = max(b2, b3)
         return max(nums)
+
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) == 1:
+            return nums[0]
+        elif len(nums) == 2:
+            return max(nums[0], nums[1])
+        nums1 = [0,0,0] + nums[1:]
+        nums2 = [0,0,0] + nums[:-1]
+        for i in range(3, len(nums1)):
+            b2 = nums1[i] + nums1[i-3]
+            b3 = nums1[i] + nums1[i-2]
+            nums1[i] = max(b2, b3)
+        for i in range(3, len(nums2)):
+            b2 = nums2[i] + nums2[i-3]
+            b3 = nums2[i] + nums2[i-2]
+            nums2[i] = max(b2, b3)
+        return max( max(nums1), max(nums2) )
+    
