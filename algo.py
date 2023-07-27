@@ -5298,3 +5298,20 @@ class Solution(object):
             start *= (10-i)
             res += start
         return res 
+
+    def maxProfit(self, prices, fee):
+        """
+        :type prices: List[int]
+        :type fee: int
+        :rtype: int
+        """        
+        buy = float("-inf")
+        sell = 0
+        
+        for today_price in prices:
+            prev_buy = buy
+            prev_sell = sell
+            buy = max(prev_buy, prev_sell - today_price)
+            sell = max(prev_sell, prev_buy + today_price - fee)
+            print(buy, sell)
+        return sell
