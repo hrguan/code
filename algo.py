@@ -5283,4 +5283,18 @@ class Solution(object):
                 i += 1
                 j -= 1
             dp[num] = temp
-        return dp[n]  
+        return dp[n] 
+
+    def countNumbersWithUniqueDigits(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 0:
+            return 1
+        res = 10
+        start = 9
+        for i in range(1, n):
+            start *= (10-i)
+            res += start
+        return res 
