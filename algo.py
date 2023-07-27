@@ -5315,3 +5315,21 @@ class Solution(object):
             sell = max(prev_sell, prev_buy + today_price - fee)
             print(buy, sell)
         return sell
+
+    def fib(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        zero = 0
+        one = 1
+        if n == 0:
+            return 0
+        if n == 1:
+            return 1
+        res = 0
+        for i in range(2, n+1):
+            res = zero + one
+            zero = one
+            one = res
+        return res
