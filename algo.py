@@ -5266,3 +5266,21 @@ class Solution(object):
             sell = prev_hold + stock_price_of_Day_i
             cool_down = max(prev_cool_down, prev_sell)
         return max(sell, cool_down)
+
+    def integerBreak(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        dp = [1] * (n+1)
+        dp[0] = 0
+        for num in range(2, n+1):
+            i = 1
+            j = num-1
+            temp = 0
+            while i <= j:
+                temp = max(temp, (max(i, dp[i]) * max(j, dp[j])) )  
+                i += 1
+                j -= 1
+            dp[num] = temp
+        return dp[n]  
