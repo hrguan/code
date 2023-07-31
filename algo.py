@@ -5386,3 +5386,34 @@ class Solution(object):
                 res = max(res, h*w)
             stack.append(i)
         return res
+
+    def countOfAtoms(self, formula):
+        """
+        :type formula: str
+        :rtype: str
+        """
+        dict = {}
+        m = [1]
+        digit = '' 
+        lower = '' 
+        for i in range(len(formula)-1, -1, -1):
+            element = formula[i] + lower
+            if element.isdigit():
+                digit = element + digit       
+            elif element.islower():
+                lower = element      
+            elif element == ')':
+                m.append(m[-1] * int(digit or 1))
+                digit = ''      
+            elif element == '(':
+                m.pop()  
+            else:
+                dict[element] = dict.get(element, 0) + m[-1]*int(digit or 1)
+                digit = ''
+                lower = ''
+        output = ''
+        for key, value in sorted(dict.items()):
+            if value == 1:
+                value = ''
+            output = output + key + str(value)
+        return output
