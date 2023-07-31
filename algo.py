@@ -5352,3 +5352,21 @@ class Solution(object):
                 j = i //2
                 dp[i] = dp[j] + dp[j+1]
         return max(dp)
+
+    def sumSubarrayMins(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: int
+        """
+        sums = [0] * len(arr)
+        stack = []
+        for i in range(len(arr)):
+            while stack and arr[stack[-1]] > arr[i]:
+                stack.pop()
+            if stack:
+                j = stack[-1]
+                sums[i] = sums[j] + arr[i] * (i-j)
+            else:
+                sums[i] = arr[i] * (i+1)
+            stack.append(i)
+        return sum(sums) % (10**9+7)
