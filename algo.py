@@ -5427,6 +5427,7 @@ class Solution(object):
         for i in range(31, -1, -1):
             pool = set([num >> i for num in nums])
             res <<= 1
+            #largest_possible in this length(same as res)
             largest_possible = res+1
             for a in pool:
                 # a, b both in pool, largest = a ^ b => largest^a = a ^ b^a = b 
@@ -5434,4 +5435,26 @@ class Solution(object):
                 if largest_possible ^ a in pool:
                     res = largest_possible
                     break
-        return re
+        return res
+
+    def containsNearbyAlmostDuplicate(self, nums, indexDiff, valueDiff):
+        """
+        :type nums: List[int]
+        :type indexDiff: int
+        :type valueDiff: int
+        :rtype: bool
+        """
+        buckets = {}
+        valueDiff += 1
+        for idx, num in enumerate(nums):
+            bucketID = num // valueDiff
+            if bucketID in buckets:
+                return True
+            for i in (bucketID-1, bucketID+1):
+                if i in buckets:
+                    if abs(buckets[i] - num) < valueDiff:
+                        return True
+            buckets[bucketID] = num
+            if idx >= indexDiff:
+                del buckets[ nums[idx-indexDiff] // valueDiff]
+        return False
