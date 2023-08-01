@@ -5417,3 +5417,21 @@ class Solution(object):
                 value = ''
             output = output + key + str(value)
         return output
+
+    def findMaximumXOR(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        res = 0
+        for i in range(31, -1, -1):
+            pool = set([num >> i for num in nums])
+            res <<= 1
+            largest_possible = res+1
+            for a in pool:
+                # a, b both in pool, largest = a ^ b => largest^a = a ^ b^a = b 
+                # largest_possible ^ a = b
+                if largest_possible ^ a in pool:
+                    res = largest_possible
+                    break
+        return re
