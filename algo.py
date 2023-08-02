@@ -5509,3 +5509,29 @@ class Solution(object):
                 if k == len(num):
                     return True
         return False
+
+    def splitIntoFibonacci(self, num):
+        """
+        :type num: str
+        :rtype: List[int]
+        """
+        ans = []
+        def backtrack(ans, idx):
+            if idx == len(num) and len(ans) >= 3:
+                return True
+            for i in range(idx, len(num)):
+                if i > idx and num[idx] == "0":
+                    break
+                temp = int(num[idx:i+1])
+                sz = len(ans)
+                if temp >= 2**31:
+                    break
+                if sz >= 2 and temp > ans[-1]+ans[-2]:
+                    break
+                if sz <= 1 or temp == ans[-1]+ans[-2]:
+                    ans.append(temp)
+                    if backtrack(ans, i+1):
+                        return True
+                    ans.pop()
+        backtrack(ans, 0)
+        return ans
