@@ -5526,12 +5526,24 @@ class Solution(object):
                 sz = len(ans)
                 if temp >= 2**31:
                     break
-                if sz >= 2 and temp > ans[-1]+ans[-2]:
-                    break
-                if sz <= 1 or temp == ans[-1]+ans[-2]:
+                elif sz >= 2 and temp > ans[-1]+ans[-2]:
+                    return False
+                elif sz <= 1 or (sz >= 2 and temp == ans[-1]+ans[-2]):
                     ans.append(temp)
                     if backtrack(ans, i+1):
                         return True
                     ans.pop()
+            return False
         backtrack(ans, 0)
         return ans
+
+    def grayCode(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        res = [0]
+        for i in range(n):
+            for j in range(len(res)-1, -1, -1):
+                res.append( res[j] | 1 << i )
+        return res
