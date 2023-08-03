@@ -5561,3 +5561,22 @@ class Solution(object):
             return max(a, b)
         p1 = maxScore(0, len(nums)-1)
         return p1 >= (sum(nums)-p1)
+
+    def subarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        d = {0:1}
+        res = 0
+        prev = 0
+        for num in nums:
+            prev += num
+            if prev - k in d:
+                res += d[prev - k]
+            if prev not in d:
+                d[prev] = 1
+            else:
+                d[prev] += 1
+        return res
