@@ -5547,3 +5547,17 @@ class Solution(object):
             for j in range(len(res)-1, -1, -1):
                 res.append( res[j] | 1 << i )
         return res
+
+    def predictTheWinner(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        def maxScore(i, j):
+            if i > j:
+                return 0
+            a = nums[i] + min(maxScore(i+2, j), maxScore(i+1, j-1))
+            b = nums[j] + min(maxScore(i, j-2), maxScore(i+1, j-1))
+            return max(a, b)
+        p1 = maxScore(0, len(nums)-1)
+        return p1 >= (sum(nums)-p1)
