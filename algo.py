@@ -5580,3 +5580,18 @@ class Solution(object):
             else:
                 d[prev] += 1
         return res
+    
+    def isReflected(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: bool
+        """
+        points_set = set(map(tuple, points))
+        points.sort()
+        min_x = points[0][0]
+        max_x = points[-1][0] 
+        mid_x = (max_x + min_x)/2.0
+        for x, y in points_set:
+            if (2*mid_x - x, y) not in points_set:
+                return False               
+        return True
