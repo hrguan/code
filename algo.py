@@ -5695,4 +5695,15 @@ class Solution(object):
                     d[nums[i]] = i
         return False
 
+    def hammingWeight(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        count = 0
+        while n:
+            count += 1
+            n = n & (n-1)
+        return count
+
     
