@@ -5657,4 +5657,25 @@ class Solution(object):
                     return False
         return True
 
+    def isAnagram(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        s_d = {}
+        for word in s:
+            if word not in s_d:
+                s_d[word] = 1
+            else:
+                s_d[word] += 1
+        for word in t:
+            if word not in s_d:
+                return False
+            else:
+                s_d[word] -= 1
+                if s_d[word] == 0:
+                    del s_d[word]
+        return len(s_d) == 0
+
     
