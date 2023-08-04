@@ -5639,4 +5639,22 @@ class Solution(object):
                 break
         return count
 
+    def wordPattern(self, pattern, s):
+        """
+        :type pattern: str
+        :type s: str
+        :rtype: bool
+        """
+        d = {}
+        words = s.split()
+        if len(pattern) != len(words) or len(set(pattern)) != len(set(words)):
+            return False
+        for idx, char in enumerate(pattern):
+            if char not in d:
+                d[char] = words[idx]
+            else:
+                if d[char] != words[idx]:
+                    return False
+        return True
+
     
