@@ -5677,5 +5677,22 @@ class Solution(object):
                 if s_d[word] == 0:
                     del s_d[word]
         return len(s_d) == 0
+    
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        d = {}
+        for i in range(len(nums)):
+            if nums[i] not in d:
+                d[nums[i]] = i
+            else:
+                if abs(i - d[nums[i]]) <= k:
+                    return True
+                else:
+                    d[nums[i]] = i
+        return False
 
     
