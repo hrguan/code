@@ -5706,4 +5706,30 @@ class Solution(object):
             n = n & (n-1)
         return count
 
+    def summaryRanges(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[str]
+        """
+        if not nums:
+            return []
+        start = nums[0]
+        count = 0
+        res = []
+        for i in range(1, len(nums)):
+            if nums[i] != start+count+1:
+                if count == 0:
+                    res.append(str(start))
+                else:
+                    res.append(str(start)+"->"+str((start+count)))
+                start = nums[i]
+                count = 0
+            else:
+                count += 1
+        if start != nums[-1]:
+            res.append(str(start)+"->"+str((start+count)))
+        else:
+            res.append(str(nums[-1]))
+        return res
+
     
