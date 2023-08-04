@@ -5595,3 +5595,20 @@ class Solution(object):
             if (2*mid_x - x, y) not in points_set:
                 return False               
         return True
+
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        edit = 0
+        for num in nums:
+            if num == val:
+                continue
+            else:
+                nums[edit] = num
+                edit += 1
+        return edit
+
+    
