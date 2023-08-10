@@ -5767,4 +5767,25 @@ class Solution(object):
             return self.deleteDuplicates(head.next.next)
         return self.deleteDuplicates(head.next)
 
+    def copyRandomList(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        if not head:
+            return None
+        d = {}
+        curr = head
+        while curr:
+            d[curr] = Node(curr.val, None, None)
+            curr = curr.next
+        curr = head
+        while curr:
+            if curr.next:
+                d[curr].next = d[curr.next]
+            if curr.random:
+                d[curr].random = d[curr.random]
+            curr = curr.next
+        return d[head]
+
     
