@@ -5732,4 +5732,25 @@ class Solution(object):
             res.append(str(nums[-1]))
         return res
 
+    def rotateRight(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        if not k or not head:
+            return head
+        length = 1
+        last = head
+        while last.next:
+            length += 1
+            last = last.next
+        last.next = head
+
+        for i in range(length - (k%length)):
+            last = last.next
+        dummy = last.next
+        last.next = None
+        return dummy
+
     
