@@ -5753,4 +5753,18 @@ class Solution(object):
         last.next = None
         return dummy
 
+    def deleteDuplicates(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head or not head.next:
+            return head
+        if head.val != head.next.val:
+            head.next = self.deleteDuplicates(head.next)
+            return head
+        if not head.next.next or head.next.val != head.next.next.val:
+            return self.deleteDuplicates(head.next.next)
+        return self.deleteDuplicates(head.next)
+
     
