@@ -5815,4 +5815,15 @@ class Solution(object):
             res[i] *= temp
         return res
 
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
+        citations.sort(reverse=True)
+        for idx, citation in enumerate(citations):
+            if idx >= citation:
+                return idx
+        return len(citations)
+
     
