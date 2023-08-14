@@ -5888,3 +5888,21 @@ class Solution(object):
             if idx < len(nums):
                 rightSum -= nums[idx]
         return -1
+
+    def sortArrayByParityII(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        even = 0
+        odd = 1
+        while even < len(nums) or odd < len(nums):
+            while even < len(nums) and nums[even] % 2 == 0:
+                even += 2
+            while odd < len(nums) and nums[odd] % 2 != 0:
+                odd += 2
+            if even < len(nums) and odd < len(nums):
+                nums[odd], nums[even] = nums[even], nums[odd]
+            even += 2
+            odd += 2
+        return nums
