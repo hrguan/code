@@ -5857,3 +5857,17 @@ class Solution(object):
         for num in nums:
             res.append(d[num])
         return res
+
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        edit = 0
+        for num in nums:s
+            if num != 0:
+                nums[edit] = num
+                edit += 1
+        while edit < len(nums):
+            nums[edit] = 0
+            edit += 1
