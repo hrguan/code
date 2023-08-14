@@ -5842,3 +5842,18 @@ class Solution(object):
                 res[i] = nums[l] ** 2
                 l += 1
         return res
+
+    def smallerNumbersThanCurrent(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        sort_nums = sorted(nums)
+        d = dict()
+        for idx, num in enumerate(sort_nums):
+            if num not in d:
+                d[num] = idx
+        res = []
+        for num in nums:
+            res.append(d[num])
+        return res
