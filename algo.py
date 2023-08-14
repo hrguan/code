@@ -5864,10 +5864,27 @@ class Solution(object):
         :rtype: None Do not return anything, modify nums in-place instead.
         """
         edit = 0
-        for num in nums:s
+        for num in nums:
             if num != 0:
                 nums[edit] = num
                 edit += 1
         while edit < len(nums):
             nums[edit] = 0
             edit += 1
+
+    def pivotIndex(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        leftSum = 0
+        rightSum = sum(nums) - nums[0]
+        idx = 0
+        while idx < len(nums):
+            if leftSum == rightSum:
+                return idx
+            leftSum += nums[idx]
+            idx += 1
+            if idx < len(nums):
+                rightSum -= nums[idx]
+        return -1
