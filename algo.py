@@ -5985,3 +5985,43 @@ class Solution(object):
                 cols[j].add(board[i][j])
                 boxes[box].add(board[i][j])
         return True
+
+    def gameOfLife(self, board):
+        """
+        :type board: List[List[int]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """
+        live = set()
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                curr = board[i][j]
+                count_1 = 0
+                if j-1 >= 0:
+                    if i-1 >= 0 and board[i-1][j-1] == 1:
+                        count_1 += 1
+                    if board[i][j-1] == 1:
+                        count_1 += 1
+                    if i+1 < len(board) and board[i+1][j-1] == 1:
+                        count_1 += 1
+                if j+1 < len(board[0]):
+                    if i-1 >= 0 and board[i-1][j+1] == 1:
+                        count_1 += 1
+                    if board[i][j+1] == 1:
+                        count_1 += 1
+                    if i+1 < len(board) and board[i+1][j+1] == 1:
+                        count_1 += 1
+                if i-1 >= 0 and board[i-1][j] == 1:
+                    count_1 += 1
+                if i+1 < len(board) and board[i+1][j] == 1:
+                    count_1 += 1
+                if curr == 1 and (count_1 == 2 or count_1 == 3):
+                    live.add((i, j))
+                if curr == 0 and count_1 == 3:
+                    live.add((i, j))
+
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if (i, j) in live:
+                    board[i][j] = 1
+                else:
+                    board[i][j] = 0
