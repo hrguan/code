@@ -5906,3 +5906,16 @@ class Solution(object):
             even += 2
             odd += 2
         return nums
+
+    def validMountainArray(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: bool
+        """
+        p1 = 0
+        p2 = len(arr)-1
+        while p1+1 < len(arr) and arr[p1] < arr[p1+1]:
+            p1 += 1
+        while p2 > 0 and arr[p2] < arr[p2-1]:
+            p2 -= 1
+        return 0 < p1==p2 < len(arr)-1
