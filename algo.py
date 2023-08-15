@@ -5919,3 +5919,19 @@ class Solution(object):
         while p2 > 0 and arr[p2] < arr[p2-1]:
             p2 -= 1
         return 0 < p1==p2 < len(arr)-1
+    
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        def reverse(start, end):
+            while start < end:
+                nums[start], nums[end] = nums[end], nums[start]
+                start += 1
+                end -= 1
+        k = k % len(nums)
+        reverse(0, len(nums)-k-1)
+        reverse(len(nums)-k, len(nums)-1)
+        reverse(0, len(nums)-1)
