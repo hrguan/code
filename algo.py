@@ -5935,3 +5935,29 @@ class Solution(object):
         reverse(0, len(nums)-k-1)
         reverse(len(nums)-k, len(nums)-1)
         reverse(0, len(nums)-1)
+
+    def generateMatrix(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        matrix = [[None]*n for i in range(n)]
+        top = 0
+        left = 0
+        right = n-1
+        bottom = n-1
+        numbers = (i for i in range(1, n**2+1))
+        while left <= right and top <= bottom:
+            for i in range(left, right+1):
+                matrix[top][i] = next(numbers)
+            top += 1
+            for i in range(top, bottom+1):
+                matrix[i][right] = next(numbers)
+            right -= 1
+            for i in range(right, left-1, -1):
+                matrix[bottom][i] = next(numbers)
+            bottom -= 1
+            for i in range(bottom, top-1, -1):
+                matrix[i][left] = next(numbers)
+            left+= 1
+        return matrix
