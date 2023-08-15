@@ -5961,3 +5961,27 @@ class Solution(object):
                 matrix[i][left] = next(numbers)
             left+= 1
         return matrix
+
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        rows = [set() for i in range(9)]
+        cols = [set() for i in range(9)]
+        boxes = [set() for i in range(9)]
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                box = (i//3)*3 + j//3
+                if board[i][j] == ".":
+                    continue
+                if board[i][j] in rows[i]:
+                    return False
+                if board[i][j] in cols[j]:
+                    return False
+                if board[i][j] in boxes[box]:
+                    return False
+                rows[i].add(board[i][j])
+                cols[j].add(board[i][j])
+                boxes[box].add(board[i][j])
+        return True
