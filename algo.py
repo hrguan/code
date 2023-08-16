@@ -6025,3 +6025,21 @@ class Solution(object):
                     board[i][j] = 1
                 else:
                     board[i][j] = 0
+
+    def maxSubarraySumCircular(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        total = 0
+        maxCur = 0
+        maxSum = nums[0]
+        minCur = 0
+        minSum = nums[0]
+        for num in nums:
+            total += num
+            maxCur = max(num, maxCur + num)
+            maxSum = max(maxSum, maxCur)
+            minCur = min(num, minCur + num)
+            minSum = min(minSum, minCur)
+        return max(maxSum, total-minSum) if maxSum > 0 else maxSum
