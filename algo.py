@@ -6135,3 +6135,34 @@ class Solution(object):
                 if rep * (len(s) // len(rep)) == s:
                     return True
         return False
+
+    def isLongPressedName(self, name, typed):
+        """
+        :type name: str
+        :type typed: str
+        :rtype: bool
+        """
+        if (len(name) == len(typed) and name!=typed ) or (len(typed) < len(name)):
+            return False
+        j = 0
+        i = 0
+        while j < len(typed) and i < len(name):
+            count_name = 1
+            count_typed = 1
+            while i+1 < len(name) and name[i+1] == name[i]:
+                count_name += 1
+                i+=1
+            if typed[j] != name[i]:
+                return False
+            else:
+                while j+1 < len(typed) and typed[j+1] == typed[j]:
+                    count_typed += 1
+                    j+=1
+            print(i, j, count_name, count_typed)
+            if count_typed < count_name:
+                return False
+            j+=1
+            i+=1
+        if j == len(typed) and i == len(name):
+            return True
+        return False
