@@ -6122,3 +6122,16 @@ class Solution(object):
             else:
                 t_start.append(t[i])
         return s_stack == t_start
+    
+    def repeatedSubstringPattern(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        rep = ""
+        for i in range(len(s)//2):
+            rep += s[i]
+            if len(s) % len(rep) == 0:
+                if rep * (len(s) // len(rep)) == s:
+                    return True
+        return False
