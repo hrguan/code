@@ -6098,3 +6098,27 @@ class Solution(object):
                 start += 1
                 end -= 1 
         return "".join(s)
+
+    def backspaceCompare(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        s_stack = []
+        t_start = []
+        for i in range(len(s)):
+            if s_stack and s[i] == "#":
+                s_stack.pop()
+            elif not s_stack and s[i] == "#":
+                continue
+            else:
+                s_stack.append(s[i])
+        for i in range(len(t)):
+            if t_start and t[i] == "#":
+                t_start.pop()
+            elif not t_start and t[i] == "#":
+                continue
+            else:
+                t_start.append(t[i])
+        return s_stack == t_start
