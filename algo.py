@@ -6066,3 +6066,35 @@ class Solution(object):
             s[l], s[r] = s[r], s[l]
             l+=1
             r-=1
+
+    def reverseStr(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: str
+        """
+        s = list(s) 
+        start = 0
+        end = 0
+        count = 0
+        while end < len(s):
+            if len(s[start:]) < k:
+                break
+            for i in range(k-1):
+                end += 1
+            if count%2 == 0 and end < len(s):
+                end2 = end
+                while start < end2:
+                    s[start], s[end2] = s[end2], s[start]
+                    start += 1
+                    end2 -= 1   
+            count += 1
+            end += 1
+            start = end  
+        if count%2 == 0 and start < len(s):
+            end = len(s)-1
+            while start < end:
+                s[start], s[end] = s[end], s[start]
+                start += 1
+                end -= 1 
+        return "".join(s)
