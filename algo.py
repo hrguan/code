@@ -6167,7 +6167,7 @@ class Solution(object):
             return True
         return False
 
-        def fullJustify(self, words, maxWidth):
+    def fullJustify(self, words, maxWidth):
         """
         :type words: List[str]
         :type maxWidth: int
@@ -6216,6 +6216,18 @@ class Solution(object):
                         curr += line[i] + " "*space
             else:
                 total_space = maxWidth - total
-                print(total_space)
+                need = len(line)-1
+                base_need = total_space//need
+                extra = total_space - (need*base_need)
+                print(total_space, need, base_need, extra)
+                for i in range(len(line)):
+                    if i == len(line)-1:
+                        curr += line[i]
+                    else:
+                        if extra > 0:
+                            curr += line[i] + " "*base_need + " "
+                            extra -= 1
+                        else:
+                            curr += line[i] + " "*base_need
             res.append(curr)
         return res
