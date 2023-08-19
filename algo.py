@@ -6166,3 +6166,56 @@ class Solution(object):
         if j == len(typed) and i == len(name):
             return True
         return False
+
+        def fullJustify(self, words, maxWidth):
+        """
+        :type words: List[str]
+        :type maxWidth: int
+        :rtype: List[str]
+        """
+        res = []
+        idx = 0
+        lines = []
+        while idx < len(words):
+            line = []
+            currLength = 0
+            line.append(words[idx])
+            currLength += len(words[idx])
+            idx += 1
+            while currLength < maxWidth and idx < len(words):
+                new = currLength + len(words[idx]) + 1
+                if new <= maxWidth:
+                    line.append(words[idx])
+                    currLength = new
+                    idx += 1
+                else:
+                    break
+            lines.append(line)
+        for idx in range(len(lines)):
+            line = lines[idx]
+            curr = ""
+            total = 0 
+            for word in line:
+                total += len(word)
+            if idx == len(lines)-1:
+                for i in range(len(line)):
+                    if i == len(line)-1:
+                        curr += line[i]
+                        curr += " " *(maxWidth - len(curr))
+                    else:
+                        curr += line[i] + " "
+            elif len(line) == 1:
+                curr += line[0]
+                curr += " "* (maxWidth - len(line[0]))
+            elif (maxWidth - total) % (len(line)-1) == 0:
+                space = (maxWidth - total) // (len(line) -1)
+                for i in range(len(line)):
+                    if i == len(line)-1:
+                        curr += line[i]
+                    else:
+                        curr += line[i] + " "*space
+            else:
+                total_space = maxWidth - total
+                print(total_space)
+            res.append(curr)
+        return res
