@@ -6231,3 +6231,22 @@ class Solution(object):
                             curr += line[i] + " "*base_need
             res.append(curr)
         return res
+
+        def removeElements(self, head, val):
+        """
+        :type head: ListNode
+        :type val: int
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        dummy.next = head
+        prev = dummy
+        curr = head
+        while curr:
+            if curr.val == val:
+                prev.next = curr.next
+                curr = curr.next
+            else:
+                curr = curr.next
+                prev = prev.next
+        return dummy.next
