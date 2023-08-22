@@ -6345,3 +6345,25 @@ class Solution(object):
             head.next = d[prefix].next
             head = head.next
         return dummy.next
+
+    def sortedListToBST(self, head):
+        """
+        :type head: Optional[ListNode]
+        :rtype: Optional[TreeNode]
+        """
+        if not head:
+            return
+        if not head.next:
+            return TreeNode(head.val)
+        prev = None
+        slow = fast = head
+        while fast and fast.next:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
+        if prev:
+            prev.next = None
+        root = TreeNode(slow.val)
+        root.left = self.sortedListToBST(head)
+        root.right = self.sortedListToBST(slow.next)
+        return root
