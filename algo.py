@@ -6232,7 +6232,7 @@ class Solution(object):
             res.append(curr)
         return res
 
-        def removeElements(self, head, val):
+    def removeElements(self, head, val):
         """
         :type head: ListNode
         :type val: int
@@ -6250,3 +6250,24 @@ class Solution(object):
                 curr = curr.next
                 prev = prev.next
         return dummy.next
+
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        length = 0
+        curr = head
+        while curr:
+            length += 1
+            curr = curr.next
+        curr = head
+        prev = length - n -1 
+        if prev == -1:
+            return head.next
+        while prev > 0:
+            curr = curr.next
+            prev -= 1
+        curr.next = curr.next.next
+        return head
