@@ -6278,49 +6278,28 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        prev1 = None
-        while l1:
-            n = l1.next
-            l1.next = prev1
-            prev1 = l1
-            l1 = n
-        l1 = prev1
-        prev2 = None
-        while l2:
-            n = l2.next
-            l2.next = prev2
-            prev2 = l2
-            l2 = n
-        l2 = prev2
+        l1 = self.rev(None, l1)
+        l2 = self.rev(None, l2)
         carry = 0
         dummy = ListNode(0)
         prev = dummy
-        while l1 and l2:
-            newCarry, currNum = divmod((carry + l1.val + l2.val), 10)
+        while l1 or l2 or carry:
+            l1_val = l1.val if l1 != None else 0
+            l2_val = l2.val if l2 != None else 0
+            newCarry, currNum = divmod((carry + l1_val + l2_val), 10)
             prev.next = ListNode(currNum)
             prev = prev.next
             carry = newCarry
-            l1 = l1.next
-            l2 = l2.next
-        while l1:
-            newCarry, currNum = divmod((carry + l1.val), 10)
-            prev.next = ListNode(currNum)
-            prev = prev.next
-            carry = newCarry
-            l1 = l1.next
-        while l2:
-            newCarry, currNum = divmod((carry + l2.val), 10)
-            prev.next = ListNode(currNum)
-            prev = prev.next
-            carry = newCarry
-            l2 = l2.next
-        if carry:
-            prev.next = ListNode(carry)
-        prev = None
-        tail = dummy.next
-        while tail:
-            n = tail.next
-            tail.next = prev
-            prev = tail
-            tail = n
+            if l1:
+                l1 = l1.next
+            if l2:
+                l2 = l2.next
+        return self.rev(None, dummy.next)
+    
+    def rev(self, prev, node):
+        while node:
+            n = node.next
+            node.next = prev
+            prev = node
+            node = n
         return prev
