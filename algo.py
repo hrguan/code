@@ -6271,3 +6271,56 @@ class Solution(object):
             prev -= 1
         curr.next = curr.next.next
         return head
+
+        def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        prev1 = None
+        while l1:
+            n = l1.next
+            l1.next = prev1
+            prev1 = l1
+            l1 = n
+        l1 = prev1
+        prev2 = None
+        while l2:
+            n = l2.next
+            l2.next = prev2
+            prev2 = l2
+            l2 = n
+        l2 = prev2
+        carry = 0
+        dummy = ListNode(0)
+        prev = dummy
+        while l1 and l2:
+            newCarry, currNum = divmod((carry + l1.val + l2.val), 10)
+            prev.next = ListNode(currNum)
+            prev = prev.next
+            carry = newCarry
+            l1 = l1.next
+            l2 = l2.next
+        while l1:
+            newCarry, currNum = divmod((carry + l1.val), 10)
+            prev.next = ListNode(currNum)
+            prev = prev.next
+            carry = newCarry
+            l1 = l1.next
+        while l2:
+            newCarry, currNum = divmod((carry + l2.val), 10)
+            prev.next = ListNode(currNum)
+            prev = prev.next
+            carry = newCarry
+            l2 = l2.next
+        if carry:
+            prev.next = ListNode(carry)
+        prev = None
+        tail = dummy.next
+        while tail:
+            n = tail.next
+            tail.next = prev
+            prev = tail
+            tail = n
+        return prev
