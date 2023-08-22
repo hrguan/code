@@ -6272,7 +6272,7 @@ class Solution(object):
         curr.next = curr.next.next
         return head
 
-        def addTwoNumbers(self, l1, l2):
+    def addTwoNumbers(self, l1, l2):
         """
         :type l1: ListNode
         :type l2: ListNode
@@ -6281,7 +6281,7 @@ class Solution(object):
         l1 = self.rev(None, l1)
         l2 = self.rev(None, l2)
         carry = 0
-        dummy = ListNode(0)
+        dummy = sListNode(0)
         prev = dummy
         while l1 or l2 or carry:
             l1_val = l1.val if l1 != None else 0
@@ -6303,3 +6303,45 @@ class Solution(object):
             prev = node
             node = n
         return prev
+
+    def __init__(self, head):
+        """
+        :type head: Optional[ListNode]
+        """
+        self.head = head
+        self.length = 0
+        curr = self.head
+        while curr:
+            self.length += 1
+            curr = curr.next
+    def getRandom(self):
+        """
+        :rtype: int
+        """
+        curr = self.head
+        random_int = random.randint(0, self.length-1)
+        while random_int:
+            curr = curr.next
+            random_int -= 1
+        return curr.val
+    
+    def removeZeroSumSublists(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        dummy.next = head
+        d = {0: dummy}
+        prefix = 0
+        while head:
+            prefix += head.val
+            d[prefix] = head         
+            head = head.next
+        head = dummy
+        prefix = 0
+        while head:
+            prefix += head.val
+            head.next = d[prefix].next
+            head = head.next
+        return dummy.next
