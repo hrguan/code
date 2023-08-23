@@ -6351,6 +6351,19 @@ class Solution(object):
         :type head: Optional[ListNode]
         :rtype: Optional[TreeNode]
         """
+        # nums = []
+        # while head:
+        #     nums.append(head.val)
+        #     head = head.next
+        # def dfs(i,j):
+        #     if i > j:
+        #         return 
+        #     mid = (i+j)//2
+        #     node = TreeNode(nums[mid])
+        #     node.left = dfs(i,mid-1)
+        #     node.right = dfs(mid+1,j)        
+        #     return node
+        # return dfs(0,len(nums)-1)
         if not head:
             return
         if not head.next:
@@ -6367,3 +6380,92 @@ class Solution(object):
         root.left = self.sortedListToBST(head)
         root.right = self.sortedListToBST(slow.next)
         return root
+
+class DLLNode(object):
+    def __init__(self, val):
+        self.val = val
+        self.prev = None
+        self.next = None
+class MyLinkedList(object):
+    def __init__(self):
+        self.head = DLLNode(-1)
+        self.tail = DLLNode(-1)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.count = 0
+    def get(self, index):
+        """
+        :type index: int
+        :rtype: int
+        """
+        if index >= self.count:
+            return -1
+        curr = self.head.next
+        while index > 0:
+            curr = curr.next
+            index -= 1
+        return curr.val
+    def addAtHead(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """   
+        new = DLLNode(val)
+        nxt = self.head.next
+        self.head.next = new
+        new.prev = self.head
+        new.next = nxt
+        nxt.prev = new
+        self.count += 1
+    def addAtTail(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """   
+        new = DLLNode(val)
+        p = self.tail.prev
+        new.next = self.tail
+        self.tail.prev = new
+        p.next = new
+        new.prev = p  
+        self.count += 1
+    def addAtIndex(self, index, val):
+        """
+        :type index: int
+        :type val: int
+        :rtype: None
+        """
+        if index == 0:
+            self.addAtHead(val)
+        elif index == self.count:
+            self.addAtTail(val)
+        elif index > self.count:
+            return 
+        else:
+            pre = self.head
+            while index > 0:
+                pre = pre.next
+                index -= 1
+            nxt = pre.next
+            new = DLLNode(val)
+            new.prev = pre
+            pre.next = new
+            new.next = nxt
+            nxt.prev = new
+            self.count += 1
+    def deleteAtIndex(self, index):
+        """
+        :type index: int
+        :rtype: None
+        """
+        if index >= self.count or self.count==0:
+            return
+        curr = self.head.next
+        while index > 0:
+            curr = curr.next
+            index -= 1
+        p = curr.prev
+        n = curr.next
+        p.next = n
+        n.prev = p
+        self.count -= 1
