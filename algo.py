@@ -6500,3 +6500,27 @@ class MyLinkedList(object):
             for i in range(v):
                 res.append(k)
         return res
+
+    def fourSumCount(self, nums1, nums2, nums3, nums4):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :type nums3: List[int]
+        :type nums4: List[int]
+        :rtype: int
+        """
+        d = {}
+        for n1 in nums1:
+            for n2 in nums2:
+                curr = n1+n2
+                if curr in d:
+                    d[curr] += 1
+                else:
+                    d[curr] = 1
+        res = 0
+        for n3 in nums3:
+            for n4 in nums4:
+                complement = -(n3+n4)
+                if complement in d:
+                    res += d[complement]       
+        return res
