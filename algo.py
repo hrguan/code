@@ -6469,3 +6469,34 @@ class MyLinkedList(object):
         p.next = n
         n.prev = p
         self.count -= 1
+
+        def commonChars(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[str]
+        """
+        d = {}
+        count = 1
+        for word in words[0]:
+            if word not in d:
+                d[word] = 1
+            else:
+                d[word] += 1
+        for word in words[1:]:
+            temp = {}
+            for char in word:
+                if char not in temp:
+                    temp[char] = 1
+                else:
+                    temp[char] += 1
+            for char, v in d.items():
+                if char not in temp:
+                    del d[char]
+                elif char in d and char in temp:
+                    d[char] = min(d[char], temp[char])
+  
+        res = []
+        for k, v in d.items():
+            for i in range(v):
+                res.append(k)
+        return res

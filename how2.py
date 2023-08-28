@@ -2,6 +2,8 @@
 # 2.02 String
 # 2.03  Two Pointers
 # 2.04 Linked List
+# 2.13 Hash Table
+
 2.05 Stack
 2.06 Tree
 2.07 Dynamic Programming
@@ -10,7 +12,6 @@
 2.10 Breadth First Search
 2.11 Binary Search
 2.12 Math
-2.13 Hash Table
 2.14 Sorting
 2.15 Bit Manipulation
 2.16 Union Find
