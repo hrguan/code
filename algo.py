@@ -6524,3 +6524,22 @@ class MyLinkedList(object):
                 if complement in d:
                     res += d[complement]       
         return res
+
+    def nextGreaterElements(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        res = [-1] * len(nums)
+        stack = []
+        for i in range(len(nums)):
+            while stack and nums[i] > nums[stack[-1]]:
+                res[stack.pop()] = nums[i]
+            stack.append(i)
+        if stack:
+            for i in range(len(nums)):
+                while stack and nums[i] > nums[stack[-1]]:
+                    res[stack.pop()] = nums[i]
+                stack.append(i)
+        return res
+        

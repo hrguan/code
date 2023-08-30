@@ -3,8 +3,8 @@
 # 2.03  Two Pointers
 # 2.04 Linked List
 # 2.13 Hash Table
+# 2.05 Stack
 
-2.05 Stack
 2.06 Tree
 2.07 Dynamic Programming
 2.08 Backtracking
