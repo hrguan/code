@@ -6583,3 +6583,42 @@ class MyQueue(object):
         :rtype: bool
         """
         return len(self.stack1) == 0
+
+class MyStack(object):
+    def __init__(self):
+        self.q1 = deque()
+        self.q2 = deque()
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: None
+        """
+        self.q1.append(x)
+    def pop(self):
+        """
+        :rtype: int
+        """  
+        need = len(self.q1)-1
+        for i in range(need):
+            self.q2.append(self.q1.popleft())
+        res = self.q1.popleft()
+        for i in range(need):
+            self.q1.append(self.q2.popleft())
+        return res
+    def top(self):
+        """
+        :rtype: int
+        """
+        need = len(self.q1)-1
+        for i in range(need):
+            self.q2.append(self.q1.popleft())
+        res = self.q1.popleft()
+        self.q2.append(res)
+        for i in range(len(self.q2)):
+            self.q1.append(self.q2.popleft())
+        return res
+    def empty(self):
+        """
+        :rtype: bool
+        """
+        return len(self.q1) == 0
