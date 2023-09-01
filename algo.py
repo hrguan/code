@@ -6622,3 +6622,32 @@ class MyStack(object):
         :rtype: bool
         """
         return len(self.q1) == 0
+
+        def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
+        stack = []
+        res = 0
+        for token in tokens:
+            if token.isdigit():
+                stack.append(int(token))
+            elif token.lstrip("-").isdigit():
+                curr = int(token.lstrip("-")) * -1
+                stack.append(curr)
+            else:
+                first = stack.pop()
+                second = stack.pop()
+                if token == "+":            
+                    stack.append(first+second)
+                elif token == "-":
+                    stack.append(second - first)
+                elif token == "*":
+                    stack.append(first*second)
+                elif token == "/":
+                    if second >= 0 and first >= 0 or second <= 0 and first <= 0 :
+                        stack.append(second // first)
+                    else:
+                        stack.append(-1 * (abs(second) // abs(first)))
+        return stack[0]
