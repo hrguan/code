@@ -6623,7 +6623,7 @@ class MyStack(object):
         """
         return len(self.q1) == 0
 
-        def evalRPN(self, tokens):
+    def evalRPN(self, tokens):
         """
         :type tokens: List[str]
         :rtype: int
@@ -6651,3 +6651,18 @@ class MyStack(object):
                     else:
                         stack.append(-1 * (abs(second) // abs(first)))
         return stack[0]
+
+    def dailyTemperatures(self, temperatures):
+        """
+        :type temperatures: List[int]
+        :rtype: List[int]
+        """
+        stack = []
+        res = [0] * len(temperatures)
+        for i in range(len(temperatures)):
+            temperature = temperatures[i]
+            while stack and stack[-1][1] < temperature:
+                res[stack[-1][0]] = i- stack[-1][0]
+                stack.pop()
+            stack.append((i, temperature))
+        return res
