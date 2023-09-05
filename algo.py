@@ -6666,3 +6666,25 @@ class MyStack(object):
                 stack.pop()
             stack.append((i, temperature))
         return res
+
+    def smallestRange(self, nums):
+        """
+        :type nums: List[List[int]]
+        :rtype: List[int]
+        """
+        MAX = nums[0][0]
+        q = []
+        for i in range(len(nums)):
+            heapq.heappush(q, (nums[i][0], i, 0))
+            MAX = max(MAX, nums[i][0])
+        res = [q[0][0], MAX]
+        while True:
+            num, idx, curr_position = heapq.heappop(q)
+            if curr_position == len(nums[idx])-1:
+                break
+            next_num = nums[idx][curr_position+1]
+            MAX = max(MAX, next_num)
+            heapq.heappush(q, (next_num, idx, curr_position+1))
+            if MAX-q[0][0] < res[1]-res[0]:
+                res = [q[0][0], MAX]
+        return res
