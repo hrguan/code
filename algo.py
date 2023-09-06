@@ -6688,3 +6688,22 @@ class MyStack(object):
             if MAX-q[0][0] < res[1]-res[0]:
                 res = [q[0][0], MAX]
         return res
+
+    def lastStoneWeight(self, stones):
+        """
+        :type stones: List[int]
+        :rtype: int
+        """
+        q = []
+        for stone in stones:
+            heapq.heappush(q, -stone)
+        while len(q) >= 2:
+            first = heapq.heappop(q) * -1
+            second = heapq.heappop(q) * -1
+            if first == second:
+                continue
+            curr = first-second
+            heapq.heappush(q, -curr)
+        return q[0]*-1 if len(q)==1 else 0
+
+    
