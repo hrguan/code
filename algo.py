@@ -6707,4 +6707,20 @@ class MyStack(object):
             heapq.heappush(q, -curr)
         return q[0]*-1 if len(q)==1 else 0
 
+
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        odd = set()
+        for char in s:
+            if char not in odd:
+                odd.add(char)
+            else:
+                odd.remove(char)
+        if len(odd) == 0:
+            return len(s)
+        return len(s) - len(odd) + 1 
+
     
