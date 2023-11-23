@@ -6723,4 +6723,22 @@ class MyStack(object):
             return len(s)
         return len(s) - len(odd) + 1 
 
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        l = 0
+        r = len(s)-1
+        while l < r:
+            while l <= len(s)-1 and not s[l].isalnum():
+                l += 1
+            while r >= 0 and not s[r].isalnum():
+                r -= 1
+            if (l <= len(s)-1 and s[l].lower()) != (r >= 0 and s[r].lower()):
+                return False
+            l += 1
+            r -= 1
+        return True
+
     
