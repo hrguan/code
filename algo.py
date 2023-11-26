@@ -6774,4 +6774,21 @@ class MyStack(object):
             i-=1
             j+=1
         return s[i+1:j]
+
+    def __init__(self):
+        self.count = 0
+    def countSubstrings(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        for i in range(len(s)):
+            self.check(s, i, i)
+            self.check(s, i, i+1)    
+        return self.count
+    def check(self, s, i, j):
+        while i >=0 and j <= len(s)-1 and s[i]==s[j]:
+            self.count += 1
+            i-=1
+            j+=1
     
