@@ -6791,4 +6791,17 @@ class MyStack(object):
             self.count += 1
             i-=1
             j+=1
-    
+
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        d = dict()
+        d[nums[0]] = 0
+        for i in range(1, len(nums)):
+            com = target - nums[i]
+            if com in d:
+                return [d[com], i]
+            d[nums[i]] = i
