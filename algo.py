@@ -6849,3 +6849,31 @@ class MyStack(object):
                 else:
                     k -= 1
         return res
+
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        # space
+        # time
+        res = float("inf")
+        nums.sort()
+        for i in range(0, len(nums)-2):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            j = i+1
+            k = len(nums)-1
+            while j < k:
+                d = (nums[i]+nums[j]+nums[k]) - target
+                if d == 0:
+                    return target
+                if abs(d) < abs(res-target):
+                    res = (nums[i]+nums[j]+nums[k])
+                
+                if nums[i]+nums[j]+nums[k] < target:
+                    j += 1
+                else:
+                    k -= 1
+        return res
