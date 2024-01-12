@@ -26,3 +26,18 @@
             slow = slow.next
             fast = fast.next.next
         return slow
+
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        seen = set()
+        while headA:
+            seen.add(headA)
+            headA = headA.next
+        while headB:
+            if headB in seen:
+                return headB
+            headB = headB.next
+        return None
