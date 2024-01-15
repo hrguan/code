@@ -109,4 +109,35 @@
         tail.next = curr
         return dummy.next
 
+    def oddEvenList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        dummy.next = head
+        first_head = head
+        if not head:
+            return None
+        if head.next:
+            curr = second_head = second_head_dummy = head.next
+        else:
+            return head
+        odd = True
+        while curr.next:
+            node = curr.next
+            if odd:
+                first_head.next = node
+                first_head = node
+            else:
+                second_head.next = node
+                second_head = node
+            curr = node
+            odd = not odd
+
+        second_head.next = None
+        first_head.next = second_head_dummy
+
+        return dummy.next
+
     ##############################
