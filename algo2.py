@@ -82,4 +82,31 @@
             curr = n
         return prev
 
+    def reverseBetween(self, head, left, right):
+        """
+        :type head: ListNode
+        :type left: int
+        :type right: int
+        :rtype: ListNode
+        """
+        if left == right:
+            return head
+        dummy = ListNode(0)
+        prev = dummy
+        dummy.next = head
+        for i in range(left-1):
+            prev = prev.next
+        head1 = prev
+        tail = curr = prev.next
+        step = (right-left)+1
+        while step:
+            step -= 1
+            n = curr.next
+            curr.next = prev
+            prev = curr
+            curr = n
+        head1.next = prev
+        tail.next = curr
+        return dummy.next
+
     ##############################
