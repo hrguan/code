@@ -170,3 +170,30 @@
             if num in nums1:
                 res.add(num)
         return res
+
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        res = []
+        d1 = dict()
+        d2 = dict()
+        for num in nums1:
+            if num in d1:
+                d1[num] += 1
+            else:
+                d1[num] = 1
+
+        for num in nums2:
+            if num in d2:
+                d2[num] += 1
+            else:
+                d2[num] = 1
+
+        for k, v in d1.items():
+            if k in d2:
+                v = min(d1[k], d2[k])
+                res.extend([k] * v)
+        return res
