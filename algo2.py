@@ -1,4 +1,6 @@
 # starting at Jan. 2024
+############################################################
+# 1/8 -> 1/15 LinkedList
     def reverseList(self, head):
         """
         :type head: ListNode
@@ -140,4 +142,17 @@
 
         return dummy.next
 
-    ##############################
+############################################################
+# 1/16 -> 1/21 
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        d = dict()
+        for i in range(len(nums)):
+            complementary = target - nums[i]
+            if complementary in d:
+                return [d[complementary], i]
+            d[nums[i]] = i
