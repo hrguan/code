@@ -197,3 +197,23 @@
                 v = min(d1[k], d2[k])
                 res.extend([k] * v)
         return res
+
+    def groupAnagrams(self, words):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        res = []
+        d = collections.defaultdict(list)
+        for word in words:
+            order = [0] * 26
+            for char in word:
+                order[ord(char)-ord('a')] += 1
+            d[tuple(order)].append(word)
+        for v in d.values():
+            res.append(v)
+        return res
+    
+
+
+############################################################
