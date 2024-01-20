@@ -214,6 +214,20 @@
             res.append(v)
         return res
     
-
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        res = 0
+        s = set(nums)
+        for num in nums:
+            if num-1 in s:
+                continue
+            temp = 1
+            while num+temp in s:
+                temp+=1
+            res = max(res, temp)
+        return res
 
 ############################################################
