@@ -222,12 +222,42 @@
         res = 0
         s = set(nums)
         for num in nums:
-            if num-1 in s:
+            if num+1 in s:
                 continue
             temp = 1
-            while num+temp in s:
+            while num-temp in s:
                 temp+=1
             res = max(res, temp)
         return res
+    
+    def getHint(self, secret, guess):
+        """
+        :type secret: str
+        :type guess: str
+        :rtype: str
+        """
+        bulls = 0
+        cows = 0
+        match_idx = set()
+        d = collections.defaultdict(set)
+        for i in range(len(secret)):
+            d[secret[i]].add(i)
+        for i in range(len(guess)):
+            if guess[i] == secret[i]:
+                bulls += 1
+                match_idx.add(i)
+                d[guess[i]].remove(i)
+                if not d[guess[i]]:
+                    del d[guess[i]]
+        for i in range(len(guess)):
+            if i in match_idx:
+                continue
+            if guess[i] in d:
+                cows += 1
+                idx = d[guess[i]].pop()
+                if not d[guess[i]]:
+                    del d[guess[i]]
+                
+        return str(bulls)+"A"+str(cows)+"B"
 
 ############################################################
