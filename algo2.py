@@ -285,7 +285,6 @@
 ############################################################
 # 1/29 - 2/4
 class TicTacToe(object):
-
     def __init__(self, n):
         """
         :type n: int
@@ -295,7 +294,6 @@ class TicTacToe(object):
         self.c = [0] * n
         self.dia = 0
         self.anti = 0
-        
 
     def move(self, row, col, player):
         """
@@ -318,6 +316,42 @@ class TicTacToe(object):
             return 2
         return 0
 
+class RandomizedSet(object):
 
+    def __init__(self):
+        self.arr = []
+        self.map = dict()
+
+    def insert(self, val):
+        """
+        :type val: int
+        :rtype: bool
+        """
+        if val not in self.map:
+            self.map[val] = len(self.arr)
+            self.arr.append(val)
+            return True
+        return False
+
+    def remove(self, val):
+        """
+        :type val: int
+        :rtype: bool
+        """
+        if val not in self.map:
+            return False
+        idx = self.map[val]
+        last = self.arr[-1]        
+        self.map[last] = idx
+        del self.map[val]
+        self.arr[idx] = last
+        self.arr.pop()
+        return True
+
+    def getRandom(self):
+        """
+        :rtype: int
+        """
+        return random.choice(self.arr)
 
 ############################################################
