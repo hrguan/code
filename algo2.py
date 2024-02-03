@@ -281,4 +281,43 @@
 
         return matrix
 
+    
+############################################################
+# 1/29 - 2/4
+class TicTacToe(object):
+
+    def __init__(self, n):
+        """
+        :type n: int
+        """
+        self.n = n
+        self.r = [0] * n
+        self.c = [0] * n
+        self.dia = 0
+        self.anti = 0
+        
+
+    def move(self, row, col, player):
+        """
+        :type row: int
+        :type col: int
+        :type player: int
+        :rtype: int
+        """
+        token = 1 if player == 1 else -1
+        self.r[row] += token 
+        self.c[col] += token
+        if row == col:
+            self.dia += token
+        if row == self.n-col-1:
+            self.anti += token
+        
+        if self.r[row] == self.n or self.c[col] == self.n or self.dia == self.n or self.anti == self.n:
+            return 1
+        elif abs(self.r[row]) == self.n or abs(self.c[col]) == self.n or abs(self.dia) == self.n or abs(self.anti) == self.n:
+            return 2
+        return 0
+
+
+
 ############################################################
