@@ -354,4 +354,75 @@ class RandomizedSet(object):
         """
         return random.choice(self.arr)
 
+class Node(object):
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.next = None
+        self.prev = None
+
+class LRUCache(object):
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.capacity = capacity
+        self.count = 0
+        self.map = dict()
+        self.head = Node(0, 0)
+        self.tail = Node(0, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+    def add_node(self, node):
+        n = self.head.next
+        self.head.next = node
+        node.prev = self.head
+        node.next = n
+        n.prev = node
+
+    def remove_node(self, node):
+        n = node.next
+        p = node.prev
+        p.next = n
+        n.prev = p
+
+    def pop_tail(self):
+        n = self.tail.prev
+        self.remove_node(n)
+        return n
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.map:
+            return -1
+        node = self.map[key]
+        self.remove_node(node)
+        self.add_node(node)
+        return node.val
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        if key not in self.map:
+            new_node = Node(key, value)
+            self.count += 1
+            self.map[key] = new_node
+            self.add_node(new_node)
+            if self.count > self.capacity:
+                node = self.pop_tail()
+                del self.map[node.key]
+                self.count -= 1
+        else:
+            node = self.map[key]
+            self.remove_node(node)
+            node.val = value
+            self.add_node(node)
+
 ############################################################
+# 2/5 - 2/11
