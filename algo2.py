@@ -426,3 +426,29 @@ class LRUCache(object):
 
 ############################################################
 # 2/5 - 2/11
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        stack = []
+        for paren in s:
+            if paren in ["(", "{", "["]:
+                stack.append(paren)
+            else:
+                if paren == ")":
+                    if stack and stack[-1] == "(":
+                        stack.pop()
+                    else:
+                        return False
+                elif paren == "}":
+                    if stack and stack[-1] == "{":
+                        stack.pop()
+                    else:
+                        return False
+                else:
+                    if stack and stack[-1] == "[":
+                        stack.pop()
+                    else:
+                        return False
+        return len(stack) == 0
