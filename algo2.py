@@ -452,3 +452,27 @@ class LRUCache(object):
                     else:
                         return False
         return len(stack) == 0
+
+    def asteroidCollision(self, asteroids):
+        """
+        :type asteroids: List[int]
+        :rtype: List[int]
+        """
+        res = []
+        for asteroid in asteroids:
+            while res and res[-1] > 0 > asteroid:
+                if res[-1] == asteroid * -1:
+                    res.pop()
+                    break
+                elif res[-1] > asteroid * -1:
+                    break
+                else:
+                    res.pop()
+                    continue
+            else:
+                res.append(asteroid)
+        return res
+
+
+############################################################
+#
