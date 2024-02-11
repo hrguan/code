@@ -473,6 +473,30 @@ class LRUCache(object):
                 res.append(asteroid)
         return res
 
-
+    def removeDuplicates(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: str
+        """
+        stack = []
+        for i in range(len(s)):
+            if stack and stack[-1][0] == s[i]:
+                char, num = stack.pop()
+                num += 1
+                if num == k:
+                    continue
+                else:
+                    stack.append((char, num))
+            else:
+                stack.append((s[i], 1))
+        if stack:
+            res = []
+            for char, num in stack:
+                for i in range(num):
+                    res.append(char)
+            return "".join(res)
+        return ""
+        
 ############################################################
 #
