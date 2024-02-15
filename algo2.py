@@ -499,4 +499,28 @@ class LRUCache(object):
         return ""
         
 ############################################################
+# 2/12-2/18
+
+    def minRemoveToMakeValid(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        builder = list(s)
+        stack = []
+        for i, char in enumerate(s):
+            if char == "(":
+                stack.append((i, "("))
+            elif char == ")":
+                if stack and stack[-1][1] == "(":
+                    stack.pop()
+                else:
+                    stack.append((i, ")"))
+        if stack:
+            for i, paren in stack:
+                builder[i] = ""
+        return "".join(builder)
+
+
+############################################################
 #
