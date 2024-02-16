@@ -560,5 +560,42 @@ class BrowserHistory(object):
             self.root = self.root.next
         return self.root.val
 
+class MinStack(object):
+    def __init__(self):
+        self.stack = []
+        self.min = None
+    def push(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """
+        if self.min == None:
+            self.min = val
+        else:
+            self.min = min(self.min, val)
+        self.stack.append((val, self.min))
+    def pop(self):
+        """
+        :rtype: None
+        """
+        if len(self.stack) == 1:
+            self.min = None
+        elif len(self.stack) > 1:
+            currMin = self.stack[-1][1]
+            currPop = self.stack[-1][0]
+            if currMin == currPop:
+                self.min = self.stack[-2][1]
+        self.stack.pop()
+    def top(self):
+        """
+        :rtype: int
+        """
+        return self.stack[-1][0]
+    def getMin(self):
+        """
+        :rtype: int
+        """
+        return self.stack[-1][1]
+
 ############################################################
 #
