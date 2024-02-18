@@ -597,5 +597,48 @@ class MinStack(object):
         """
         return self.stack[-1][1]
 
+class MyQueue(object):
+    def __init__(self):
+        self.stack1 = []
+        self.stack2 = []
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: None
+        """
+        self.stack1.append(x) 
+    def pop(self):
+        """
+        :rtype: int
+        """
+        need = len(self.stack1)-1
+        for i in range(need):
+            self.stack2.append(self.stack1.pop())
+        res = self.stack1.pop()
+        for i in range(need):
+            self.stack1.append(self.stack2.pop())
+        return res
+    def peek(self):
+        """
+        :rtype: int
+        """
+        need = len(self.stack1)-1
+        for i in range(need):
+            self.stack2.append(self.stack1.pop())
+        res = self.stack1.pop()
+        self.stack1.append(res)
+        for i in range(need):
+            self.stack1.append(self.stack2.pop())
+        return res
+    def empty(self):
+        """
+        :rtype: bool
+        """
+        return len(self.stack1) == 0
+
+############################################################
+#
+
+
 ############################################################
 #
