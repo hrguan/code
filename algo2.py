@@ -711,7 +711,35 @@ class MaxStack(object):
         self.stack.pop()
         return result
 ############################################################
-#
+# 2/19 - 2/25
+    def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
+        stack = []
+        for token in tokens:
+            if token.isdigit():
+                stack.append(int(token))
+            elif token.lstrip("-").isdigit():
+                stack.append(int(token.lstrip("-")) *-1 )
+            else:
+                second = stack.pop()
+                first = stack.pop()
+                if token == "+":
+                    stack.append(second+first)
+                elif token == "-":
+                    stack.append(first-second)
+                elif token == "*":
+                    stack.append(second*first)
+                elif token == "/":
+                    if (second>0 and first>0) or (second<0 and first<0):
+                        stack.append( abs(first)//abs(second))
+                    else:
+                        stack.append( (abs(first)//abs(second)) * -1)
+        return stack.pop()
+
+
 
 
 ############################################################
