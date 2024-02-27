@@ -743,4 +743,37 @@ class MaxStack(object):
 
 
 ############################################################
+# 2/26 - 3/3
+        stack = []
+        s += "+"
+        num = 0
+        pre = "+"
+        for char in s:
+            if char.isdigit():
+                num = num*10 + int(char)
+            elif char == " ":
+                continue
+            else:
+                if pre == "+":
+                    stack.append(num)
+                elif pre == "-":
+                    stack.append(-num)
+                elif pre == "*":
+                    stack.append(stack.pop()*num)
+                elif pre == "/":
+                    stack.append(stack.pop//num)
+                pre = char
+                num = 0
+            print(stack)
+        return sum(stack)
+
+
+
+############################################################
+#
+
+############################################################
+#
+
+############################################################
 #
