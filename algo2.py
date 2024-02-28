@@ -744,6 +744,11 @@ class MaxStack(object):
 
 ############################################################
 # 2/26 - 3/3
+    def calculate(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
         stack = []
         s += "+"
         num = 0
@@ -761,13 +766,42 @@ class MaxStack(object):
                 elif pre == "*":
                     stack.append(stack.pop()*num)
                 elif pre == "/":
-                    stack.append(stack.pop//num)
+                    stack.append(math.trunc(float(stack.pop())/num))
                 pre = char
                 num = 0
-            print(stack)
         return sum(stack)
-
-
+        
+    def calculate(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        stack = []
+        res = 0
+        sign = 1
+        num = 0
+        s += "+"
+        for char in s:
+            if char.isdigit():
+                num = num*10 + int(char)
+            elif char in "+-":
+                res += sign*num
+                sign = 1 if char == "+" else -1
+                num = 0
+            elif char == "(":
+                stack.append(res)
+                stack.append(sign)
+                sign = 1
+                res = 0
+                num = 0
+            elif char == ")":
+                res += sign*num
+                s = stack.pop()
+                p = stack.pop()
+                res = p + s*res
+                num = 0
+                sign = 1    
+        return res
 
 ############################################################
 #
